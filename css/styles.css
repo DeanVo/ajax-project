@@ -1,7 +1,29 @@
 /* font-family: 'Roboto', sans-serif;
 font-family: 'Ubuntu', sans-serif; */
 
+/* #264653 - charcoal
+#edf6f9 - Alice Blue (white)
+#83C5BE - Middle Blue Green*/
+
+header {
+  display: flex;
+  justify-content: center;
+  background-color: #264653;
+}
+
+.back-icon {
+  color: #edf6f9;
+  font-size: 3rem;
+  align-self: center;
+  position: relative;
+  right: 4rem;
+}
 
 .top-header {
   font-family: 'Roboto', sans-serif;
+  background-color: #264653;
+  font-size: 3em;
+  color: #edf6f9;
+  margin: 0;
+  padding: 1.3rem;
 }
