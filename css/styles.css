@@ -11,9 +11,11 @@ header {
   background-color: #264653;
 }
 
+
+
 .back-icon {
   color: #edf6f9;
-  font-size: 3rem;
+  font-size: 2.5rem;
   align-self: center;
   position: relative;
   right: 4rem;
@@ -22,8 +24,10 @@ header {
 .top-header {
   font-family: 'Roboto', sans-serif;
   background-color: #264653;
-  font-size: 3em;
+  text-align: center;
+  white-space: nowrap;
+  font-size: 2em;
   color: #edf6f9;
   margin: 0;
-  padding: 1.3rem;
+  padding: 1rem;
 }

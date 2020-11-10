@@ -1,4 +1,18 @@
+.row {
+  display: flex;
+}
 
+.column-full {
+  width: 100%;
+}
+
+.column-half {
+  width: 50%;
+}
+
+.column-third {
+  width: calc(100% / 3);
+}
 
 
 
