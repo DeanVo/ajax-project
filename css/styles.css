@@ -20,6 +20,28 @@ header {
   justify-content: center;
 }
 
+.align-items-center {
+  display: flex;
+  align-items: center;
+}
+
+.padding-top {
+  padding-top: .7rem;
+}
+
+.font-weight-normal {
+  font-weight: normal;
+}
+
+.red-striked {
+  text-decoration: line-through;
+  color: red;
+}
+
+.green {
+  color: green;
+}
+
 .back-icon {
   color: #edf6f9;
   font-size: 2.5rem;
@@ -46,6 +68,13 @@ header {
   height: 400px;
   background-color: #457B9D;
   font-family: 'Ubuntu', sans-serif;
+  padding-top: 1.7rem;
+}
+
+.deal-info-container {
+  background: #edf6f9;
+  border-radius: 10% / 50%;
+  margin: 0 1rem;
 }
 
 .game-img {
@@ -58,11 +87,10 @@ header {
   font-size: 2rem;
 }
 
-.red-striked {
-  text-decoration: line-through;
-  color: red;
-}
-
-.font-weight-normal {
-  font-weight: normal;
+.more-info-container {
+  margin-top: 1.2rem;
+  padding: 10px 20px;
+  border-radius: 10px;
+  width: 40%;
+  background-color: #edf6f9;
 }
