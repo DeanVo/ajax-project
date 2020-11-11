@@ -11,6 +11,10 @@ header {
   background-color: #264653;
 }
 
+h2 {
+  font-size: 1.6rem;
+}
+
 .text-align-center {
   text-align: center;
 }
@@ -27,6 +31,14 @@ header {
 
 .padding-top {
   padding-top: .7rem;
+}
+
+.margin-left {
+  margin-left: 1.5rem;
+}
+
+.margin-right {
+  margin-right: 1.5rem;
 }
 
 .font-weight-normal {
@@ -90,22 +102,33 @@ header {
 
 .more-info-container,
 .go-deal-container {
-  margin-top: 1.2rem;
-  padding: 10px 20px;
-  border-radius: 10px;
-  width: 40%;
-  background-color: #edf6f9;
+  margin-top: 1rem;
+
 }
 
 .go-deal,
 .more-info {
   text-decoration: none;
+  white-space: nowrap;
+  padding: 1.4rem 2rem;
+  border-radius: 10px;
+  width: 40%;
+  background-color: #edf6f9;
 }
 
 .favorite-icon {
   font-size: 4rem;
   padding-top: .7rem;
   color: #edf6f9;
+  text-decoration: none;
+  -webkit-text-stroke-width: .2rem;
+  -webkit-text-stroke-color: #FFDDD2;
+}
+
+.active {
+  font-size: 4rem;
+  padding-top: .7rem;
+  color: #FFDDD2;
   text-decoration: none;
   -webkit-text-stroke-width: .2rem;
   -webkit-text-stroke-color: #FFDDD2;
