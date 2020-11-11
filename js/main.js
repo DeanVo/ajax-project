@@ -87,15 +87,15 @@ function renderDealData() {
 
   // Deal info section, will require API
   var $retail = document.createElement('h2');
-  $retail.innerHTML = 'Retail: <span class="red-striked">$9.99</span>';
+  $retail.innerHTML = 'Retail: <span class="red-striked">' + data.dealInfo.normalPrice + '</span>';
   $columnHalf3.appendChild($retail);
 
   var $steamRating = document.createElement('h2');
-  $steamRating.innerHTML = 'Steam Rating: <span class="font-weight-normal">83</span>';
+  $steamRating.innerHTML = 'Steam Rating: <span class="font-weight-normal">' + data.dealInfo.steamRating + '</span>';
   $columnHalf3.appendChild($steamRating);
 
   var $metacriticScore = document.createElement('h2');
-  $metacriticScore.innerHTML = 'Metacritic Score: <span class="font-weight-normal">78</span>';
+  $metacriticScore.innerHTML = 'Metacritic Score: <span class="font-weight-normal">' + data.dealInfo.metacriticScore + '</span>';
   $columnHalf3.appendChild($metacriticScore);
 
   var $columnHalf4 = document.createElement('div');
@@ -103,15 +103,15 @@ function renderDealData() {
   $row2.appendChild($columnHalf4);
 
   var $newPrice = document.createElement('h2');
-  $newPrice.innerHTML = 'New Price: <span class="green">$2.49</span>';
+  $newPrice.innerHTML = 'New Price: <span class="green">$' + data.dealInfo.salePrice + '</span>';
   $columnHalf4.appendChild($newPrice);
 
   var $percentOff = document.createElement('h2');
-  $percentOff.textContent = '75.06% off!';
+  $percentOff.textContent = parseFloat(data.dealInfo.percentOff).toFixed(2) + '% off!';
   $columnHalf4.appendChild($percentOff);
 
   var $dealRating = document.createElement('h2');
-  $dealRating.innerHTML = 'Deal Rating: <span class="font-weight-normal">8.7</span>';
+  $dealRating.innerHTML = 'Deal Rating: <span class="font-weight-normal">' + data.dealInfo.dealRating + '</span>';
   $columnHalf4.appendChild($dealRating);
 
   var $row3 = document.createElement('div');
