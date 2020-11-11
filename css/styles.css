@@ -15,8 +15,20 @@ h2 {
   font-size: 1.6rem;
 }
 
+.roboto {
+  font-family: 'Roboto', sans-serif;
+}
+
+.ubuntu {
+  font-family: 'Ubuntu', sans-serif;
+}
+
 .text-align-center {
   text-align: center;
+}
+
+.word-wrap {
+  word-wrap: break-word;
 }
 
 .justify-content-center {
@@ -41,6 +53,10 @@ h2 {
   margin-right: 1.5rem;
 }
 
+.margin-top {
+  margin-top: 1.5rem;
+}
+
 .font-weight-normal {
   font-weight: normal;
 }
@@ -59,7 +75,7 @@ h2 {
   font-size: 2.5rem;
   align-self: center;
   position: relative;
-  right: 4rem;
+  right: 3rem;
 }
 
 .top-header {
@@ -71,6 +87,7 @@ h2 {
   color: #edf6f9;
   margin: 0;
   padding: 1rem;
+  padding-right: 2rem;
 }
 
 
@@ -83,10 +100,18 @@ h2 {
   border: .1rem solid black;
 }
 
-.deal-info-container {
+.deal-info-container,
+.info-1 {
   background: #edf6f9;
   border-radius: 10% / 50%;
   margin: 0 1rem;
+}
+
+.info-2 {
+  background: #edf6f9;
+  border-radius: 10% / 50%;
+  margin-left: 1rem;
+  margin-right: 1rem;
 }
 
 .game-img {
@@ -104,7 +129,6 @@ h2 {
 .more-info-container,
 .go-deal-container {
   margin-top: 1rem;
-
 }
 
 .go-deal,

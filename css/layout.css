@@ -1,10 +1,12 @@
-body {
-  background-color: #457B9D;
-}
 
 .hidden {
   display: none !important;
 }
+
+body {
+  background-color: #457B9D;
+}
+
 
 .row {
   display: flex;
