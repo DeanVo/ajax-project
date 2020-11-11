@@ -26,24 +26,27 @@ function getDealData() {
     console.log('xhr response', xhr.response);
     var dealInfo = data.dealInfo;
 
-    dealInfo.title = xhr.response[0].title;
-    dealInfo.gameImg = xhr.response[0].thumb;
-    dealInfo.normalPrice = xhr.response[0].normalPrice;
-    dealInfo.salePrice = xhr.response[0].salePrice;
-    dealInfo.percentOff = xhr.response[0].savings;
-    dealInfo.steamRating = xhr.response[0].steamRatingPercent;
-    dealInfo.metacriticScore = xhr.response[0].metacriticScore;
-    dealInfo.dealRating = xhr.response[0].dealRating;
+    for (var i = 0; i < xhr.response.length; i++) {
+      dealInfo.title = xhr.response[i].title;
+      dealInfo.gameImg = xhr.response[i].thumb;
+      dealInfo.normalPrice = xhr.response[i].normalPrice;
+      dealInfo.salePrice = xhr.response[i].salePrice;
+      dealInfo.percentOff = xhr.response[i].savings;
+      dealInfo.steamRating = xhr.response[i].steamRatingPercent;
+      dealInfo.metacriticScore = xhr.response[i].metacriticScore;
+      dealInfo.dealRating = xhr.response[i].dealRating;
 
-    $dealsPage.appendChild(renderDealData());
-
+      $dealsPage.appendChild(renderDealData());
+    }
   });
   xhr.send();
 }
 
+getDealData();
+
 function renderDealData() {
   var $newContainer = document.createElement('div');
-  $newContainer.setAttribute('class', 'container');
+  $newContainer.setAttribute('class', 'newContainer');
 
   var $newDeal = document.createElement('div');
   $newDeal.setAttribute('class', 'deal-listing-container');
@@ -87,15 +90,15 @@ function renderDealData() {
 
   // Deal info section, will require API
   var $retail = document.createElement('h2');
-  $retail.innerHTML = 'Retail: <span class="red-striked">' + data.dealInfo.normalPrice + '</span>';
+  $retail.innerHTML = 'Retail: <span class="red-striked">$' + data.dealInfo.normalPrice + '</span>';
   $columnHalf3.appendChild($retail);
 
   var $steamRating = document.createElement('h2');
-  $steamRating.innerHTML = 'Steam Rating: <span class="font-weight-normal">' + data.dealInfo.steamRating + '</span>';
+  $steamRating.innerHTML = 'Steam: <span class="font-weight-normal">' + data.dealInfo.steamRating + '</span>';
   $columnHalf3.appendChild($steamRating);
 
   var $metacriticScore = document.createElement('h2');
-  $metacriticScore.innerHTML = 'Metacritic Score: <span class="font-weight-normal">' + data.dealInfo.metacriticScore + '</span>';
+  $metacriticScore.innerHTML = 'Metacritic: <span class="font-weight-normal">' + data.dealInfo.metacriticScore + '</span>';
   $columnHalf3.appendChild($metacriticScore);
 
   var $columnHalf4 = document.createElement('div');

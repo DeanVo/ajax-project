@@ -96,7 +96,8 @@ h2 {
 }
 
 .game-title {
-  font-size: 3rem;
+  font-size: 2rem;
+  margin-right: 1.5rem;
 }
 
 .more-info-container,
@@ -141,7 +142,7 @@ h2 {
 .active {
   font-size: 4rem;
   padding-top: .7rem;
-  color: #FFDDD2;
+  color: red;
   text-decoration: none;
   -webkit-text-stroke-width: .2rem;
   -webkit-text-stroke-color: #264653;
