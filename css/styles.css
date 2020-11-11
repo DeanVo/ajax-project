@@ -1,0 +1,150 @@
+/* font-family: 'Roboto', sans-serif;
+font-family: 'Ubuntu', sans-serif; */
+
+/* #264653 - charcoal
+#edf6f9 - Alice Blue (white)
+#83C5BE - Middle Blue Green*/
+
+header {
+  display: flex;
+  justify-content: center;
+  background-color: #264653;
+}
+
+h2 {
+  font-size: 1.6rem;
+}
+
+.text-align-center {
+  text-align: center;
+}
+
+.justify-content-center {
+  display: flex;
+  justify-content: center;
+}
+
+.align-items-center {
+  display: flex;
+  align-items: center;
+}
+
+.padding-top {
+  padding-top: .7rem;
+}
+
+.margin-left {
+  margin-left: 1.5rem;
+}
+
+.margin-right {
+  margin-right: 1.5rem;
+}
+
+.font-weight-normal {
+  font-weight: normal;
+}
+
+.red-striked {
+  text-decoration: line-through;
+  color: red;
+}
+
+.green {
+  color: green;
+}
+
+.back-icon {
+  color: #edf6f9;
+  font-size: 2.5rem;
+  align-self: center;
+  position: relative;
+  right: 4rem;
+}
+
+.top-header {
+  font-family: 'Roboto', sans-serif;
+  background-color: #264653;
+  text-align: center;
+  white-space: nowrap;
+  font-size: 2rem;
+  color: #edf6f9;
+  margin: 0;
+  padding: 1rem;
+}
+
+
+.deal-listing-container {
+  width: 100%;
+  height: 100%;
+  background-color: #457B9D;
+  font-family: 'Ubuntu', sans-serif;
+  padding: 1.7rem 0;
+  border: .1rem solid black;
+}
+
+.deal-info-container {
+  background: #edf6f9;
+  border-radius: 10% / 50%;
+  margin: 0 1rem;
+}
+
+.game-img {
+  width: 50%;
+  height: 60%;
+  align-self: center;
+}
+
+.game-title {
+  font-size: 2rem;
+  margin-right: 1.5rem;
+  word-wrap: break-word;
+}
+
+.more-info-container,
+.go-deal-container {
+  margin-top: 1rem;
+
+}
+
+.go-deal,
+.more-info {
+  text-decoration: none;
+  white-space: nowrap;
+  padding: 1.4rem 2rem;
+  border-radius: 10px;
+  width: 40%;
+  background-color: #edf6f9;
+}
+
+.favorite-icon {
+  font-size: 4rem;
+  padding-top: .7rem;
+  color: #edf6f9;
+  text-decoration: none;
+  -webkit-text-stroke-width: .2rem;
+  -webkit-text-stroke-color: #264653;
+}
+
+.cart-icon {
+  font-size: 4rem;
+  padding-top: .7rem;
+  color: #264653;
+  text-decoration: none;
+}
+
+.info-icon {
+  font-size: 4rem;
+  padding-top: .7rem;
+  color: #264653;
+  text-decoration: none;
+}
+
+.active {
+  font-size: 4rem;
+  padding-top: .7rem;
+  color: red;
+  text-decoration: none;
+  -webkit-text-stroke-width: .2rem;
+  -webkit-text-stroke-color: #264653;
+}
