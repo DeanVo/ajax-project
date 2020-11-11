@@ -148,3 +148,7 @@ h2 {
   -webkit-text-stroke-width: .2rem;
   -webkit-text-stroke-color: #264653;
 }
+
+.hidden {
+  display: none;
+}
