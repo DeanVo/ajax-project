@@ -122,7 +122,21 @@ h2 {
   color: #edf6f9;
   text-decoration: none;
   -webkit-text-stroke-width: .2rem;
-  -webkit-text-stroke-color: #FFDDD2;
+  -webkit-text-stroke-color: #264653;
+}
+
+.cart-icon {
+  font-size: 4rem;
+  padding-top: .7rem;
+  color: #264653;
+  text-decoration: none;
+}
+
+.info-icon {
+  font-size: 4rem;
+  padding-top: .7rem;
+  color: #264653;
+  text-decoration: none;
 }
 
 .active {
@@ -131,5 +145,5 @@ h2 {
   color: #FFDDD2;
   text-decoration: none;
   -webkit-text-stroke-width: .2rem;
-  -webkit-text-stroke-color: #FFDDD2;
+  -webkit-text-stroke-color: #264653;
 }
