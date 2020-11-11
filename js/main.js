@@ -36,6 +36,14 @@ function getDealData() {
       dealInfo.metacriticScore = xhr.response[i].metacriticScore;
       dealInfo.dealRating = xhr.response[i].dealRating;
 
+      if (dealInfo.steamRating === '0') {
+        dealInfo.steamRating = 'N/A';
+      }
+
+      if (dealInfo.metacriticScore === '0') {
+        dealInfo.metacriticScore = 'N/A';
+      }
+
       $dealsPage.appendChild(renderDealData());
     }
   });
