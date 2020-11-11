@@ -1,3 +1,5 @@
+var $dealsPage = document.querySelector('.container');
+
 function toggleFavorite() {
   var inactive = 'fas fa-heart align-items-center favorite-icon inactive';
   var active = 'fas fa-heart align-items-center favorite-icon active';
@@ -22,13 +24,30 @@ function getDealData() {
   xhr.addEventListener('load', function () {
     console.log('xhr status', xhr.status);
     console.log('xhr response', xhr.response);
+    var dealInfo = data.dealInfo;
+
+    dealInfo.title = xhr.response[0].title;
+    dealInfo.gameImg = xhr.response[0].thumb;
+    dealInfo.normalPrice = xhr.response[0].normalPrice;
+    dealInfo.salePrice = xhr.response[0].salePrice;
+    dealInfo.percentOff = xhr.response[0].savings;
+    dealInfo.steamRating = xhr.response[0].steamRatingPercent;
+    dealInfo.metacriticScore = xhr.response[0].metacriticScore;
+    dealInfo.dealRating = xhr.response[0].dealRating;
+
+    $dealsPage.appendChild(renderDealData());
+
   });
   xhr.send();
 }
 
 function renderDealData() {
+  var $newContainer = document.createElement('div');
+  $newContainer.setAttribute('class', 'container');
+
   var $newDeal = document.createElement('div');
   $newDeal.setAttribute('class', 'deal-listing-container');
+  $newContainer.appendChild($newDeal);
 
   var $dealInfoContainer = document.createElement('div');
   $dealInfoContainer.setAttribute('class', 'deal-info-container');
@@ -45,17 +64,17 @@ function renderDealData() {
   var $gameImg = document.createElement('img');
   $gameImg.setAttribute('class', 'game-img');
   // API data
-  $gameImg.setAttribute('src', 'img/placeholder_dracula_origin.jpg');
+  $gameImg.setAttribute('src', data.dealInfo.gameImg);
   $columnHalf1.appendChild($gameImg);
 
   var $columnHalf2 = document.createElement('div');
-  $columnHalf2.setAttribute('class', 'column-half');
+  $columnHalf2.setAttribute('class', 'column-half text-align-center');
   $row1.appendChild($columnHalf2);
 
-  var $gameTitle = document.createElement('div');
+  var $gameTitle = document.createElement('h2');
   $gameTitle.setAttribute('class', 'game-title');
   // API data
-  $gameTitle.textContent = 'Dracula: Origin';
+  $gameTitle.textContent = data.dealInfo.title;
   $columnHalf2.appendChild($gameTitle);
 
   var $row2 = document.createElement('div');
@@ -97,7 +116,7 @@ function renderDealData() {
 
   var $row3 = document.createElement('div');
   $row3.setAttribute('class', 'row margin-left');
-  $dealInfoContainer.appendChild($row3);
+  $newDeal.appendChild($row3);
 
   var $colThird1 = document.createElement('div');
   $colThird1.setAttribute('class', 'column-third justify-content-center align-items-center padding-top');
@@ -121,10 +140,10 @@ function renderDealData() {
   $colThird3.setAttribute('class', 'column-third justify-content-center align-items-center padding-top');
   $row3.appendChild($colThird3);
 
-  var $icon3 = document.createElement('a');
+  var $icon3 = document.createElement('i');
   $icon3.setAttribute('href', '');
   $icon3.setAttribute('class', 'fas fa-heart align-items-center favorite-icon inactive');
   $colThird3.appendChild($icon3);
 
-  return $newDeal;
+  return $newContainer;
 }
