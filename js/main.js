@@ -1,4 +1,5 @@
-var $dealsPage = document.querySelector('.container');
+var $dealsPage = document.querySelector('.deals-page-container');
+var $moreInfoPage = document.querySelector('.more-info-page-container');
 
 function toggleFavorite() {
   var inactive = 'fas fa-heart align-items-center favorite-icon inactive';
@@ -42,6 +43,18 @@ function getDealData() {
 }
 
 getDealData();
+
+function getMoreInfoData(gameID) {
+  var xhr = new XMLHttpRequest();
+
+  xhr.open('GET', 'https://www.cheapshark.com/api/1.0/games?id=' + gameID);
+  xhr.responseType = 'json';
+  xhr.addEventListener('load', function () {
+    console.log(xhr.status);
+    console.log(xhr.response);
+  });
+  xhr.send();
+}
 
 function renderDealData(deal) {
   var $newContainer = document.createElement('div');
@@ -135,7 +148,11 @@ function renderDealData(deal) {
   var $icon2 = document.createElement('i');
   $icon2.setAttribute('class', 'fas fa-info-circle info-icon');
   $icon2.setAttribute('data-gameId', deal.gameID);
-  $icon2.addEventListener('click', function (e) { console.log(e.target.dataset); });
+  $icon2.setAttribute('href', '#');
+  $icon2.addEventListener('click', function (e) {
+    $moreInfoPage.appendChild(renderMoreInfo());
+    viewSwapper('more-info');
+  });
   $colThird2.appendChild($icon2);
 
   var $colThird3 = document.createElement('div');
@@ -149,23 +166,7 @@ function renderDealData(deal) {
   return $newContainer;
 }
 
-// function getGameID(game) {
-//   var xhr = new XMLHttpRequest();
-
-//   xhr.open('GET', 'https://www.cheapshark.com/api/1.0/deals?');
-//   xhr.responseType = 'json';
-//   xhr.addEventListener('load', function () {
-//     for (var i = 0; i < xhr.response.length; i++) {
-//       if (game === xhr.response[i].title) {
-//         data.moreInfo.title = xhr.response[i].title;
-//         data.moreInfo.gameID = xhr.response[i].gameID;
-//       }
-//     }
-//   });
-//   xhr.send();
-// }
-
-function renderMoreInfo(deal) {
+function renderMoreInfo() {
   var $moreInfoContainer = document.createElement('div');
   $moreInfoContainer.setAttribute('class', 'more-info-container');
 
@@ -319,4 +320,5 @@ function viewSwapper(dataView) {
       $viewList[i].className = '';
     }
   }
+  data.view = dataView;
 }
