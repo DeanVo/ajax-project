@@ -22,5 +22,6 @@ var data = {
     reviewCount: '',
     cheapestPrice: '',
     cheapestPriceDate: ''
-  }
+  },
+  allDeals: []
 };
