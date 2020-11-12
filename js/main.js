@@ -158,3 +158,19 @@ function renderDealData() {
 
   return $newContainer;
 }
+
+function getGameID(game) {
+  var xhr = new XMLHttpRequest();
+
+  xhr.open('GET', 'https://www.cheapshark.com/api/1.0/deals?');
+  xhr.responseType = 'json';
+  xhr.addEventListener('load', function () {
+    for (var i = 0; i < xhr.response.length; i++) {
+      if (game === xhr.response[i].title) {
+        data.moreInfo.title = xhr.response[i].title;
+        data.moreInfo.gameID = xhr.response[i].gameID;
+      }
+    }
+  });
+  xhr.send();
+}

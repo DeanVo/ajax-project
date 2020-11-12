@@ -11,5 +11,16 @@ var data = {
     steamRating: '',
     metacriticScore: '',
     dealRating: ''
+  },
+  moreInfo: {
+    title: '',
+    gameID: '',
+    publisher: '',
+    releaseDate: '',
+    metacriticLink: '',
+    steamReview: '',
+    reviewCount: '',
+    cheapestPrice: '',
+    cheapestPriceDate: ''
   }
 };
