@@ -308,3 +308,15 @@ function renderMoreInfo(deal) {
 }
 
 renderMoreInfo();
+
+var $viewList = document.querySelectorAll('div[data-view');
+
+function viewSwapper(dataView) {
+  for (var i = 0; i < $viewList.length; i++) {
+    if ($viewList[i].getAttribute('data-view') !== dataView) {
+      $viewList[i].className = 'hidden';
+    } else {
+      $viewList[i].className = '';
+    }
+  }
+}
