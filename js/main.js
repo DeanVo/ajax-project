@@ -1,31 +1,48 @@
 var $dealsPage = document.querySelector('.deals-page-container');
 var $moreInfoPage = document.querySelector('.more-info-page-container');
 var $backIcon = document.querySelector('.back-icon');
+var $dealsButton = document.querySelector('.deals-button');
 
-function toggleFavorite() {
-  var inactive = 'fas fa-heart align-items-center favorite-icon inactive';
-  var active = 'fas fa-heart align-items-center favorite-icon active';
+// function toggleFavorite() {
+//   var inactive = 'fas fa-heart align-items-center favorite-icon inactive';
+//   var active = 'fas fa-heart align-items-center favorite-icon active';
 
-  // if (event.target.tagName !== 'I') {
-  //   return;
-  // }
+//   if (event.target.tagName !== 'I') {
+//     return;
+//   }
 
-  // if (event.target.tagName === 'I' && event.target.className === inactive) {
-  //   event.target.className = active;
-  // } else {
-  //   event.target.className = inactive;
-  // }
+//   if (event.target.tagName === 'I' && event.target.className === inactive) {
+//     event.target.className = active;
+//   } else {
+//     event.target.className = inactive;
+//   }
+// }
+
+// document.addEventListener('click', toggleFavorite);
+
+function goDealsPage() {
+  viewSwapper('deals-page');
 }
 
-document.addEventListener('click', toggleFavorite);
+$dealsButton.addEventListener('click', goDealsPage);
 
 function goBack(e) {
   if (data.view === 'more-info' && e.target.className === 'far fa-arrow-alt-circle-left back-icon') {
     viewSwapper('deals-page');
+  } else if (data.view === 'deals-page' && e.target.className === 'far fa-arrow-alt-circle-left back-icon') {
+    viewSwapper('home-page');
   }
 }
 
 $backIcon.addEventListener('click', goBack);
+
+function hideBackOnHome() {
+  if (data.view === 'home-page') {
+    $backIcon.style.visibility = 'hidden';
+  }
+}
+
+hideBackOnHome();
 
 function getDealData() {
   var xhr = new XMLHttpRequest();
@@ -108,6 +125,11 @@ function viewSwapper(dataView) {
     }
   }
   data.view = dataView;
+  if (data.view === 'home-page') {
+    $backIcon.style.visibility = 'hidden';
+  } else {
+    $backIcon.style.visibility = 'visible';
+  }
 }
 
 function renderDealData(deal) {
