@@ -142,6 +142,12 @@ h2 {
   border: .1rem solid black;
 }
 
+.home-page-container {
+  background-color: #457B9D;
+  font-family: 'Ubuntu', sans-serif;
+  padding: 5rem 0;
+}
+
 .deal-info-container,
 .info-1 {
   background: #edf6f9;
@@ -223,4 +229,22 @@ h2 {
 
 .hidden {
   display: none;
+}
+
+.home-buttons {
+  display: flex;
+  flex-direction: column;
+}
+
+.deals-button,
+.favorites-button,
+.stores-button {
+  font-family: 'Roboto', sans-serif;
+  font-size: 2rem;
+  width: 50%;
+  padding: 1rem 0;
+  margin-bottom: 2rem;
+  background-color: #edf6f9;
+  border-radius: 10% / 50%;
+  outline: none;
 }
