@@ -2,26 +2,26 @@
 
 var data = {
   view: 'home-page',
-  dealInfo: {
+  moreInfo: {
     title: '',
+    gameID: '',
     gameImg: '',
     normalPrice: '',
     salePrice: '',
     percentOff: '',
     steamRating: '',
     metacriticScore: '',
-    dealRating: ''
-  },
-  moreInfo: {
-    title: '',
-    gameID: '',
+    dealRating: '',
     publisher: '',
     releaseDate: '',
     metacriticLink: '',
     steamReview: '',
-    reviewCount: '',
+    steamRatingCount: '',
+    steamRatingText: '',
     cheapestPrice: '',
-    cheapestPriceDate: ''
+    cheapestPriceDate: '',
+    dealID: ''
   },
-  allDeals: []
+  allDeals: [],
+  dealMoreInfo: []
 };
