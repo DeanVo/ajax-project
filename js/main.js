@@ -1,5 +1,6 @@
 var $dealsPage = document.querySelector('.deals-page-container');
 var $moreInfoPage = document.querySelector('.more-info-page-container');
+var $backIcon = document.querySelector('.back-icon');
 
 function toggleFavorite() {
   var inactive = 'fas fa-heart align-items-center favorite-icon inactive';
@@ -17,6 +18,14 @@ function toggleFavorite() {
 }
 
 document.addEventListener('click', toggleFavorite);
+
+function goBack(e) {
+  if (data.view === 'more-info' && e.target.className === 'far fa-arrow-alt-circle-left back-icon') {
+    viewSwapper('deals-page');
+  }
+}
+
+$backIcon.addEventListener('click', goBack);
 
 function getDealData() {
   var xhr = new XMLHttpRequest();
@@ -147,14 +156,17 @@ function renderDealData(deal) {
 
   // Deal info section, will require API
   var $retail = document.createElement('h2');
+  $retail.setAttribute('class', 'one-line');
   $retail.innerHTML = 'Retail: <span class="red-striked">$' + deal.normalPrice + '</span>';
   $columnHalf3.appendChild($retail);
 
   var $steamRatingPercent = document.createElement('h2');
+  $steamRatingPercent.setAttribute('class', 'one-line');
   $steamRatingPercent.innerHTML = 'Steam: <span class="font-weight-normal">' + deal.steamRatingPercent + '</span>';
   $columnHalf3.appendChild($steamRatingPercent);
 
   var $metacriticScore = document.createElement('h2');
+  $metacriticScore.setAttribute('class', 'one-line');
   $metacriticScore.innerHTML = 'Metacritic: <span class="font-weight-normal">' + deal.metacriticScore + '</span>';
   $columnHalf3.appendChild($metacriticScore);
 
@@ -163,14 +175,17 @@ function renderDealData(deal) {
   $row2.appendChild($columnHalf4);
 
   var $newPrice = document.createElement('h2');
+  $newPrice.setAttribute('class', 'one-line');
   $newPrice.innerHTML = 'New Price: <span class="green">$' + deal.salePrice + '</span>';
   $columnHalf4.appendChild($newPrice);
 
   var $savings = document.createElement('h2');
+  $savings.setAttribute('class', 'one-line');
   $savings.textContent = parseFloat(deal.savings).toFixed(2) + '% off!';
   $columnHalf4.appendChild($savings);
 
   var $dealRating = document.createElement('h2');
+  $dealRating.setAttribute('class', 'one-line');
   $dealRating.innerHTML = 'Deal Rating: <span class="font-weight-normal">' + deal.dealRating + '</span>';
   $columnHalf4.appendChild($dealRating);
 
@@ -235,7 +250,7 @@ function renderMoreInfo() {
   $moreInfoContainer.appendChild($info1);
   // API title
   var $gameTitleInfo = document.createElement('h3');
-  $gameTitleInfo.setAttribute('class', 'text-align-center game-title-info roboto margin-bottom padding-top');
+  $gameTitleInfo.setAttribute('class', 'text-align-center game-title-info roboto margin-bottom padding-top margin-info');
   $gameTitleInfo.textContent = moreInfo.title;
   $info1.appendChild($gameTitleInfo);
 
@@ -267,7 +282,7 @@ function renderMoreInfo() {
   $infoRow1.appendChild($infoColumnHalf2);
 
   var $infoRetail = document.createElement('h3');
-  $infoRetail.setAttribute('class', 'no-margin one-line');
+  $infoRetail.setAttribute('class', 'margin-price one-line');
   $infoRetail.innerHTML = 'Retail: <span class="red-striked">$' + moreInfo.normalPrice + '</span></h3>';
   $infoColumnHalf2.appendChild($infoRetail);
 

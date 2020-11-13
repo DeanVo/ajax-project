@@ -60,7 +60,7 @@ h2 {
 }
 
 .padding-top-info {
-  padding-top: .5rem;
+  padding-top: 4.89rem;
 }
 
 .padding-bottom {
@@ -77,6 +77,10 @@ h2 {
 
 .margin-info {
   margin: 0 1rem;
+}
+
+.margin-price {
+  margin-top: 2rem;
 }
 
 .margin-right {
@@ -152,10 +156,11 @@ h2 {
   margin-right: 1rem;
 }
 
+
 .game-img {
-  width: 50%;
-  height: 60%;
+  max-width: 60%;
   align-self: center;
+  object-fit: contain;
 }
 
 .game-title {
