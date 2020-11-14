@@ -12,11 +12,41 @@ header {
 }
 
 h2 {
-  font-size: 1.6rem;
+  font-size: 1rem;
+}
+
+.roboto {
+  font-family: 'Roboto', sans-serif;
+}
+
+.ubuntu {
+  font-family: 'Ubuntu', sans-serif;
 }
 
 .text-align-center {
   text-align: center;
+}
+
+.text-align-end {
+  text-align: end;
+  padding-right: 1rem;
+  margin-left: 2rem;
+}
+
+.text-align-left {
+  text-align: left;
+}
+
+.word-wrap {
+  word-wrap: break-word;
+}
+
+.one-line {
+  white-space: nowrap;
+}
+
+.pre-wrap {
+  white-space: pre-wrap;
 }
 
 .justify-content-center {
@@ -33,12 +63,44 @@ h2 {
   padding-top: .7rem;
 }
 
+.padding-top-info {
+  padding-top: 4.89rem;
+}
+
+.padding-bottom {
+  padding-bottom: .3rem
+}
+
+.padding-bottom {
+  padding-bottom: .39rem;
+}
+
 .margin-left {
   margin-left: 1.5rem;
 }
 
+.margin-info {
+  margin: 0 1rem;
+}
+
+.margin-price {
+  margin-top: 2rem;
+}
+
 .margin-right {
   margin-right: 1.5rem;
+}
+
+.margin-top {
+  margin-top: 1.5rem;
+}
+
+.no-margin {
+  margin: 0 0;
+}
+
+.margin-bottom {
+  margin-bottom: 1rem;
 }
 
 .font-weight-normal {
@@ -59,7 +121,7 @@ h2 {
   font-size: 2.5rem;
   align-self: center;
   position: relative;
-  right: 4rem;
+  right: 2rem;
 }
 
 .top-header {
@@ -71,6 +133,7 @@ h2 {
   color: #edf6f9;
   margin: 0;
   padding: 1rem;
+  padding-right: 4rem;
 }
 
 
@@ -83,16 +146,31 @@ h2 {
   border: .1rem solid black;
 }
 
-.deal-info-container {
+.home-page-container {
+  background-color: #457B9D;
+  font-family: 'Ubuntu', sans-serif;
+  padding: 7rem 0;
+}
+
+.deal-info-container,
+.info-1 {
   background: #edf6f9;
   border-radius: 10% / 50%;
   margin: 0 1rem;
 }
 
+.info-2 {
+  background: #edf6f9;
+  border-radius: 10% / 50%;
+  margin-left: 1rem;
+  margin-right: 1rem;
+}
+
+
 .game-img {
-  width: 50%;
-  height: 60%;
+  max-width: 60%;
   align-self: center;
+  object-fit: contain;
 }
 
 .game-title {
@@ -101,10 +179,15 @@ h2 {
   word-wrap: break-word;
 }
 
+.game-title-info {
+  font-size: 2rem;
+  word-wrap: break-word;
+}
+
 .more-info-container,
 .go-deal-container {
-  margin-top: 1rem;
-
+  /* margin-top: 1rem; */
+  border: 1px solid black;
 }
 
 .go-deal,
@@ -147,4 +230,26 @@ h2 {
   text-decoration: none;
   -webkit-text-stroke-width: .2rem;
   -webkit-text-stroke-color: #264653;
+}
+
+.hidden {
+  display: none;
+}
+
+.home-buttons {
+  display: flex;
+  flex-direction: column;
+}
+
+.deals-button,
+.favorites-button,
+.stores-button {
+  font-family: 'Roboto', sans-serif;
+  font-size: 2rem;
+  width: 50%;
+  padding: 1rem 0;
+  margin-bottom: 2rem;
+  background-color: #edf6f9;
+  border-radius: 10% / 50%;
+  outline: none;
 }
