@@ -27,6 +27,16 @@ function hideBackOnHome() {
 
 hideBackOnHome();
 
+function toggleFavorite(e) {
+  if (e.target.tagName === 'I' && e.target.className === 'fas fa-heart align-items-center favorite-icon inactive') {
+    e.target.className = 'fas fa-heart align-items-center favorite-icon active';
+  } else if (e.target.tagName === 'I' && e.target.className === 'fas fa-heart align-items-center favorite-icon active') {
+    e.target.className = 'fas fa-heart align-items-center favorite-icon inactive';
+  }
+}
+
+document.addEventListener('click', toggleFavorite);
+
 function getDealData() {
   var xhr = new XMLHttpRequest();
 
