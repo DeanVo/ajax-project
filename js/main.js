@@ -88,7 +88,7 @@ function getMoreDealData(dealID) {
     moreInfo.steamRatingText = xhr.response.gameInfo.steamRatingText;
     moreInfo.steamRatingCount = xhr.response.gameInfo.steamRatingCount;
     renderMoreDealData();
-    $moreInfoPage.appendChild(renderMoreInfo());
+    $moreInfoPage.prepend(renderMoreInfo());
     viewSwapper('more-info');
   });
   xhr.send();
@@ -110,11 +110,33 @@ function renderMoreDealData() {
     moreInfo.steamRatingText = 'N/A';
   }
 
-  if (moreInfo.releaseDate === 0) {
+  if (moreInfo.steamRatingCount === null || moreInfo.steamRatingCount === '0') {
+    moreInfo.steamRatingCount = 'N/A';
+  }
+
+  if (moreInfo.cheapestPrice === undefined) {
+    moreInfo.cheapestPrice = '--';
+  }
+
+  if (moreInfo.cheapestPriceDate === null || moreInfo.cheapestPriceDate === 0) {
+    moreInfo.cheapestPriceDate = 'N/A';
+  } else if (moreInfo.cheapestPriceDate) {
+    var newDate = new Date(moreInfo.cheapestPriceDate * 1000);
+    newDate = newDate.toString().substr(4, 11);
+    moreInfo.cheapestPriceDate = newDate;
+  }
+
+  if (moreInfo.releaseDate === null || moreInfo.releaseDate === 0) {
     moreInfo.releaseDate = 'N/A';
+  } else if (moreInfo.releaseDate) {
+    var releaseDate = new Date(moreInfo.releaseDate * 1000);
+    releaseDate = releaseDate.toString().substr(4, 11);
+    moreInfo.releaseDate = releaseDate;
   }
 
 }
+
+var $viewList = document.querySelectorAll('div[data-view');
 
 function viewSwapper(dataView) {
   for (var i = 0; i < $viewList.length; i++) {
@@ -261,67 +283,223 @@ function renderDealData(deal) {
   return $newContainer;
 }
 
+// function renderMoreInfo() {
+//   var moreInfo = data.moreInfo;
+
+//   var $moreInfoContainer = document.createElement('div');
+//   $moreInfoContainer.setAttribute('class', 'more-info-container roboto');
+
+//   var $info1 = document.createElement('div');
+//   $info1.setAttribute('class', 'info-1');
+//   $moreInfoContainer.appendChild($info1);
+//   // API title
+//   var $gameTitleInfo = document.createElement('h3');
+//   $gameTitleInfo.setAttribute('class', 'text-align-center game-title-info roboto margin-bottom padding-top margin-info');
+//   $gameTitleInfo.textContent = moreInfo.title;
+//   $info1.appendChild($gameTitleInfo);
+
+//   var $infoRow1 = document.createElement('div');
+//   $infoRow1.setAttribute('class', 'row margin-info text-align-center');
+//   $info1.appendChild($infoRow1);
+
+//   var $infoColumnHalf1 = document.createElement('div');
+//   $infoColumnHalf1.setAttribute('class', 'column-half');
+//   $infoRow1.appendChild($infoColumnHalf1);
+//   // API img
+//   var $infoImg = document.createElement('img');
+//   $infoImg.setAttribute('class', 'game-img');
+//   $infoImg.setAttribute('src', data.moreInfo.gameImg);
+//   $infoColumnHalf1.appendChild($infoImg);
+//   // API steam rating
+//   var $infoSteamRating = document.createElement('h3');
+//   $infoSteamRating.setAttribute('class', 'no-margin padding-top one-line');
+//   $infoSteamRating.innerHTML = 'Steam Rating: <span class="font-weight-normal">' + moreInfo.steamRating + '</span></h3>';
+//   $infoColumnHalf1.appendChild($infoSteamRating);
+//   // API metacritic score
+//   var $infoMetacriticScore = document.createElement('h3');
+//   $infoMetacriticScore.setAttribute('class', 'no-margin padding-top ');
+//   $infoMetacriticScore.innerHTML = 'Metacritic Score: <span class="font-weight-normal">' + moreInfo.metacriticScore + '</span></h3>';
+//   $infoColumnHalf1.appendChild($infoMetacriticScore);
+
+//   var $infoColumnHalf2 = document.createElement('div');
+//   $infoColumnHalf2.setAttribute('class', 'column-half');
+//   $infoRow1.appendChild($infoColumnHalf2);
+
+//   var $infoRetail = document.createElement('h3');
+//   $infoRetail.setAttribute('class', 'margin-price one-line');
+//   $infoRetail.innerHTML = 'Retail: <span class="red-striked">$' + moreInfo.normalPrice + '</span></h3>';
+//   $infoColumnHalf2.appendChild($infoRetail);
+
+//   var $infoNewPrice = document.createElement('h3');
+//   $infoNewPrice.setAttribute('class', 'no-margin padding-bottom');
+//   $infoNewPrice.innerHTML = 'New Price: <span class="green">$' + moreInfo.salePrice + '</span></h3>';
+//   $infoColumnHalf2.appendChild($infoNewPrice);
+
+//   var $infoPercentage = document.createElement('h3');
+//   $infoPercentage.setAttribute('class', 'no-margin padding-top-info padding-bottom-2');
+//   $infoPercentage.textContent = parseFloat(moreInfo.percentOff).toFixed(2) + '% off!';
+//   $infoColumnHalf2.appendChild($infoPercentage);
+
+//   var $infoDealRating = document.createElement('h3');
+//   $infoDealRating.setAttribute('class', 'no-margin padding-top margin-bottom');
+//   $infoDealRating.innerHTML = 'Deal Rating: <span class="font-weight-normal">' + moreInfo.dealRating + '</span></h3>';
+//   $infoColumnHalf2.appendChild($infoDealRating);
+
+//   var $info2 = document.createElement('div');
+//   $info2.setAttribute('class', 'info-2 margin-top text-align-center roboto');
+//   $moreInfoContainer.appendChild($info2);
+
+//   var $infoRow2 = document.createElement('div');
+//   $infoRow2.setAttribute('class', 'row');
+//   $info2.appendChild($infoRow2);
+
+//   var $info2ColumnHalf1 = document.createElement('div');
+//   $info2ColumnHalf1.setAttribute('class', 'column-half text-align-end');
+//   $infoRow2.appendChild($info2ColumnHalf1);
+
+//   var $publisher = document.createElement('h3');
+//   $publisher.textContent = 'Publisher:';
+//   $info2ColumnHalf1.appendChild($publisher);
+
+//   var $releaseDate = document.createElement('h3');
+//   $releaseDate.textContent = 'Release Date:';
+//   $info2ColumnHalf1.appendChild($releaseDate);
+
+//   var $metacriticLink = document.createElement('h3');
+//   $metacriticLink.textContent = 'Metacritic Link:';
+//   $info2ColumnHalf1.appendChild($metacriticLink);
+
+//   var $steamReviews = document.createElement('h3');
+//   $steamReviews.textContent = 'Steam Reviews:';
+//   $info2ColumnHalf1.appendChild($steamReviews);
+
+//   var $reviewCount = document.createElement('h3');
+//   $reviewCount.textContent = 'Review Count:';
+//   $info2ColumnHalf1.appendChild($reviewCount);
+
+//   var $cheapestPrice = document.createElement('h3');
+//   $cheapestPrice.textContent = 'Cheapest Price:';
+//   $info2ColumnHalf1.appendChild($cheapestPrice);
+
+//   var $cheapestDate = document.createElement('h3');
+//   $cheapestDate.textContent = 'Cheapest Price Date:';
+//   $info2ColumnHalf1.appendChild($cheapestDate);
+
+//   var $info2ColumnHalf2 = document.createElement('div');
+//   $info2ColumnHalf2.setAttribute('class', 'column-half text-align-left');
+//   $infoRow2.appendChild($info2ColumnHalf2);
+
+//   var $publisherAPI = document.createElement('h3');
+//   $publisherAPI.setAttribute('class', 'font-weight-normal');
+//   $publisherAPI.textContent = data.moreInfo.publisher;
+//   $info2ColumnHalf2.appendChild($publisherAPI);
+
+//   var $releaseAPI = document.createElement('h3');
+//   $releaseAPI.setAttribute('class', 'font-weight-normal');
+//   $releaseAPI.textContent = data.moreInfo.releaseDate;
+//   $info2ColumnHalf2.appendChild($releaseAPI);
+//   // come back to this
+//   var $metacriticLinkAPI = document.createElement('h3');
+//   $metacriticLinkAPI.setAttribute('class', 'font-weight-normal');
+//   $metacriticLinkAPI.textContent = 'Crysis';
+//   $info2ColumnHalf2.appendChild($metacriticLinkAPI);
+
+//   var $steamReviewsAPI = document.createElement('h3');
+//   $steamReviewsAPI.setAttribute('class', 'font-weight-normal');
+//   $steamReviewsAPI.textContent = data.moreInfo.steamRatingText;
+//   $info2ColumnHalf2.appendChild($steamReviewsAPI);
+
+//   var $reviewCountAPI = document.createElement('h3');
+//   $reviewCountAPI.setAttribute('class', 'font-weight-normal');
+//   $reviewCountAPI.textContent = data.moreInfo.steamRatingCount;
+//   $info2ColumnHalf2.appendChild($reviewCountAPI);
+
+//   var $cheapestPriceAPI = document.createElement('h3');
+//   $cheapestPriceAPI.setAttribute('class', 'font-weight-normal');
+//   $cheapestPriceAPI.textContent = '$' + data.moreInfo.cheapestPrice;
+//   $info2ColumnHalf2.appendChild($cheapestPriceAPI);
+
+//   var $cheapestDateAPI = document.createElement('h3');
+//   $cheapestDateAPI.setAttribute('class', 'font-weight-normal');
+//   $cheapestDateAPI.textContent = data.moreInfo.cheapestPriceDate;
+//   $info2ColumnHalf2.appendChild($cheapestDateAPI);
+
+//   return $moreInfoContainer;
+// }
+
 function renderMoreInfo() {
   var moreInfo = data.moreInfo;
 
   var $moreInfoContainer = document.createElement('div');
-  $moreInfoContainer.setAttribute('class', 'more-info-container');
+  $moreInfoContainer.setAttribute('class', 'more-info-container roboto');
 
   var $info1 = document.createElement('div');
-  $info1.setAttribute('class', 'info-1 roboto');
+  $info1.setAttribute('class', 'info-1');
   $moreInfoContainer.appendChild($info1);
-  // API title
-  var $gameTitleInfo = document.createElement('h3');
-  $gameTitleInfo.setAttribute('class', 'text-align-center game-title-info roboto margin-bottom padding-top margin-info');
-  $gameTitleInfo.textContent = moreInfo.title;
-  $info1.appendChild($gameTitleInfo);
 
-  var $infoRow1 = document.createElement('div');
-  $infoRow1.setAttribute('class', 'row margin-info text-align-center');
-  $info1.appendChild($infoRow1);
+  var $info1Row1 = document.createElement('div');
+  $info1Row1.setAttribute('class', 'row padding-top');
+  $info1.appendChild($info1Row1);
 
-  var $infoColumnHalf1 = document.createElement('div');
-  $infoColumnHalf1.setAttribute('class', 'column-half');
-  $infoRow1.appendChild($infoColumnHalf1);
-  // API img
-  var $infoImg = document.createElement('img');
-  $infoImg.setAttribute('class', 'game-img');
-  $infoImg.setAttribute('src', data.moreInfo.gameImg);
-  $infoColumnHalf1.appendChild($infoImg);
-  // API steam rating
-  var $infoSteamRating = document.createElement('h3');
-  $infoSteamRating.setAttribute('class', 'no-margin padding-top one-line');
-  $infoSteamRating.innerHTML = 'Steam Rating: <span class="font-weight-normal">' + moreInfo.steamRating + '</span></h3>';
-  $infoColumnHalf1.appendChild($infoSteamRating);
-  // API metacritic score
-  var $infoMetacriticScore = document.createElement('h3');
-  $infoMetacriticScore.setAttribute('class', 'no-margin padding-top one-line');
-  $infoMetacriticScore.innerHTML = 'Metacritic Score: <span class="font-weight-normal">' + moreInfo.metacriticScore + '</span></h3>';
-  $infoColumnHalf1.appendChild($infoMetacriticScore);
+  var $info1ColumnHalf1 = document.createElement('div');
+  $info1ColumnHalf1.setAttribute('class', 'column-half justify-content-center');
+  $info1Row1.appendChild($info1ColumnHalf1);
 
-  var $infoColumnHalf2 = document.createElement('div');
-  $infoColumnHalf2.setAttribute('class', 'column-half');
-  $infoRow1.appendChild($infoColumnHalf2);
+  var $info1GameImg = document.createElement('img');
+  $info1GameImg.setAttribute('class', 'game-img');
+  $info1GameImg.setAttribute('src', moreInfo.gameImg);
+  $info1ColumnHalf1.appendChild($info1GameImg);
 
-  var $infoRetail = document.createElement('h3');
-  $infoRetail.setAttribute('class', 'margin-price one-line');
-  $infoRetail.innerHTML = 'Retail: <span class="red-striked">$' + moreInfo.normalPrice + '</span></h3>';
-  $infoColumnHalf2.appendChild($infoRetail);
+  var $info1ColumnHalf2 = document.createElement('div');
+  $info1ColumnHalf2.setAttribute('class', 'column-half text-align-center');
+  $info1Row1.appendChild($info1ColumnHalf2);
 
-  var $infoNewPrice = document.createElement('h3');
-  $infoNewPrice.setAttribute('class', 'no-margin padding-bottom');
-  $infoNewPrice.innerHTML = 'New Price: <span class="green">$' + moreInfo.salePrice + '</span></h3>';
-  $infoColumnHalf2.appendChild($infoNewPrice);
+  var $info1GameTitle = document.createElement('h2');
+  $info1GameTitle.setAttribute('class', 'game-title');
+  $info1GameTitle.textContent = moreInfo.title;
+  $info1ColumnHalf2.appendChild($info1GameTitle);
 
-  var $infoPercentage = document.createElement('h3');
-  $infoPercentage.setAttribute('class', 'no-margin padding-top-info padding-bottom-2');
-  $infoPercentage.textContent = parseFloat(moreInfo.percentOff).toFixed(2) + '% off!';
-  $infoColumnHalf2.appendChild($infoPercentage);
+  var $info1Row2 = document.createElement('div');
+  $info1Row2.setAttribute('class', 'row');
+  $info1.appendChild($info1Row2);
 
-  var $infoDealRating = document.createElement('h3');
-  $infoDealRating.setAttribute('class', 'no-margin padding-top margin-bottom');
-  $infoDealRating.innerHTML = 'Deal Rating: <span class="font-weight-normal">' + moreInfo.dealRating + '</span></h3>';
-  $infoColumnHalf2.appendChild($infoDealRating);
+  var $info1ColumnHalf3 = document.createElement('div');
+  $info1ColumnHalf3.setAttribute('class', 'column-half text-align-center margin-left');
+  $info1Row2.appendChild($info1ColumnHalf3);
+
+  var $info1Retail = document.createElement('h2');
+  $info1Retail.setAttribute('class', 'one-line');
+  $info1Retail.innerHTML = 'Retail: <span class="red-striked">$' + moreInfo.normalPrice + '</span>';
+  $info1ColumnHalf3.appendChild($info1Retail);
+
+  var $info1Steam = document.createElement('h2');
+  $info1Steam.setAttribute('class', 'one-line');
+  $info1Steam.innerHTML = 'Steam Rating: <span class="font-weight-normal">' + moreInfo.steamRating + '</span>';
+  $info1ColumnHalf3.appendChild($info1Steam);
+
+  var $info1Metacritic = document.createElement('h2');
+  $info1Metacritic.setAttribute('class', 'one-line');
+  $info1Metacritic.innerHTML = 'Metacritic Score: <span class="font-weight-normal">' + moreInfo.metacriticScore + '</span>';
+  $info1ColumnHalf3.appendChild($info1Metacritic);
+
+  var $info1ColumnHalf4 = document.createElement('div');
+  $info1ColumnHalf4.setAttribute('class', 'column-half text-align-center margin-right');
+  $info1Row2.appendChild($info1ColumnHalf4);
+
+  var $info1NewPrice = document.createElement('h2');
+  $info1NewPrice.setAttribute('class', 'one-line');
+  $info1NewPrice.innerHTML = 'New Price: <span class="green">$' + moreInfo.salePrice + '</span>';
+  $info1ColumnHalf4.appendChild($info1NewPrice);
+
+  var $info1PercentOff = document.createElement('h2');
+  $info1PercentOff.setAttribute('class', 'one-line');
+  $info1PercentOff.textContent = parseFloat(moreInfo.percentOff).toFixed(2) + '% off!';
+  $info1ColumnHalf4.appendChild($info1PercentOff);
+
+  var $info1DealRating = document.createElement('h2');
+  $info1DealRating.setAttribute('class', 'one-line');
+  $info1DealRating.innerHTML = 'Deal Rating: <span class="font-weight-normal">' + moreInfo.dealRating + '</span>';
+  $info1ColumnHalf4.appendChild($info1DealRating);
 
   var $info2 = document.createElement('div');
   $info2.setAttribute('class', 'info-2 margin-top text-align-center roboto');
@@ -360,7 +538,7 @@ function renderMoreInfo() {
   $info2ColumnHalf1.appendChild($cheapestPrice);
 
   var $cheapestDate = document.createElement('h3');
-  $cheapestDate.textContent = 'Date:';
+  $cheapestDate.textContent = 'Cheapest Price Date:';
   $info2ColumnHalf1.appendChild($cheapestDate);
 
   var $info2ColumnHalf2 = document.createElement('div');
@@ -379,7 +557,7 @@ function renderMoreInfo() {
   // come back to this
   var $metacriticLinkAPI = document.createElement('h3');
   $metacriticLinkAPI.setAttribute('class', 'font-weight-normal');
-  $metacriticLinkAPI.textContent = 'Crysis';
+  $metacriticLinkAPI.innerHTML = '<a href="https://www.metacritic.com' + moreInfo.metacriticLink + '">' + moreInfo.title + '</a>';
   $info2ColumnHalf2.appendChild($metacriticLinkAPI);
 
   var $steamReviewsAPI = document.createElement('h3');
@@ -394,7 +572,7 @@ function renderMoreInfo() {
 
   var $cheapestPriceAPI = document.createElement('h3');
   $cheapestPriceAPI.setAttribute('class', 'font-weight-normal');
-  $cheapestPriceAPI.textContent = data.moreInfo.cheapestPrice;
+  $cheapestPriceAPI.textContent = '$' + data.moreInfo.cheapestPrice;
   $info2ColumnHalf2.appendChild($cheapestPriceAPI);
 
   var $cheapestDateAPI = document.createElement('h3');
@@ -404,5 +582,3 @@ function renderMoreInfo() {
 
   return $moreInfoContainer;
 }
-
-var $viewList = document.querySelectorAll('div[data-view');
