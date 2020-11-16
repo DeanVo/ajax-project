@@ -1,5 +1,6 @@
 var $dealsPage = document.querySelector('.deals-page-container');
 var $moreInfoPage = document.querySelector('.more-info-page-container');
+var $favoritesPage = document.querySelector('.favorites-page-container');
 var $backIcon = document.querySelector('.back-icon');
 var $dealsButton = document.querySelector('.deals-button');
 var $favoritesButton = document.querySelector('.favorites-button');
@@ -24,6 +25,8 @@ function goBack(e) {
   } else if (data.view === 'favorites-page' && e.target.className === 'far fa-arrow-alt-circle-left back-icon') {
     viewSwapper('home-page');
   }
+
+  renderFavorites();
 }
 
 $backIcon.addEventListener('click', goBack);
@@ -45,6 +48,14 @@ function toggleFavorite(e) {
 }
 
 document.addEventListener('click', toggleFavorite);
+
+function renderFavorites() {
+  var $favoritesList = document.querySelectorAll('.active');
+
+  for (var i = 0; i < $favoritesList.length; i++) {
+    $favoritesPage.appendChild($favoritesList[i].closest('.newContainer').cloneNode(true));
+  }
+}
 
 var $viewList = document.querySelectorAll('div[data-view');
 
