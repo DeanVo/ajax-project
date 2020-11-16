@@ -2,6 +2,7 @@ var $dealsPage = document.querySelector('.deals-page-container');
 var $moreInfoPage = document.querySelector('.more-info-page-container');
 var $backIcon = document.querySelector('.back-icon');
 var $dealsButton = document.querySelector('.deals-button');
+var $favoritesButton = document.querySelector('.favorites-button');
 
 function goDealsPage() {
   viewSwapper('deals-page');
@@ -9,10 +10,18 @@ function goDealsPage() {
 
 $dealsButton.addEventListener('click', goDealsPage);
 
+function goFavoritesPage() {
+  viewSwapper('favorites-page');
+}
+
+$favoritesButton.addEventListener('click', goFavoritesPage);
+
 function goBack(e) {
   if (data.view === 'more-info' && e.target.className === 'far fa-arrow-alt-circle-left back-icon') {
     viewSwapper('deals-page');
   } else if (data.view === 'deals-page' && e.target.className === 'far fa-arrow-alt-circle-left back-icon') {
+    viewSwapper('home-page');
+  } else if (data.view === 'favorites-page' && e.target.className === 'far fa-arrow-alt-circle-left back-icon') {
     viewSwapper('home-page');
   }
 }
@@ -36,6 +45,24 @@ function toggleFavorite(e) {
 }
 
 document.addEventListener('click', toggleFavorite);
+
+var $viewList = document.querySelectorAll('div[data-view');
+
+function viewSwapper(dataView) {
+  for (var i = 0; i < $viewList.length; i++) {
+    if ($viewList[i].getAttribute('data-view') !== dataView) {
+      $viewList[i].className = 'hidden';
+    } else {
+      $viewList[i].className = '';
+    }
+  }
+  data.view = dataView;
+  if (data.view === 'home-page') {
+    $backIcon.style.visibility = 'hidden';
+  } else {
+    $backIcon.style.visibility = 'visible';
+  }
+}
 
 function getDealData() {
   var xhr = new XMLHttpRequest();
@@ -131,24 +158,6 @@ function renderMoreDealData() {
     moreInfo.releaseDate = releaseDate;
   }
 
-}
-
-var $viewList = document.querySelectorAll('div[data-view');
-
-function viewSwapper(dataView) {
-  for (var i = 0; i < $viewList.length; i++) {
-    if ($viewList[i].getAttribute('data-view') !== dataView) {
-      $viewList[i].className = 'hidden';
-    } else {
-      $viewList[i].className = '';
-    }
-  }
-  data.view = dataView;
-  if (data.view === 'home-page') {
-    $backIcon.style.visibility = 'hidden';
-  } else {
-    $backIcon.style.visibility = 'visible';
-  }
 }
 
 function renderDealData(deal) {
