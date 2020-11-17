@@ -44,29 +44,28 @@ function toggleFavorite(e) {
       var newObj = {};
       if (data.allDeals[i].dealID === e.target.closest('.newContainer').querySelector('[data-dealid]').getAttribute('data-dealid')) {
         newObj.title = data.allDeals[i].title;
+        newObj.thumb = data.allDeals[i].thumb;
         newObj.normalPrice = data.allDeals[i].normalPrice;
         newObj.salePrice = data.allDeals[i].salePrice;
         newObj.steamRatingPercent = data.allDeals[i].steamRatingPercent;
-        newObj.percentOff = data.allDeals[i].savings;
+        newObj.savings = data.allDeals[i].savings;
         newObj.metacriticScore = data.allDeals[i].metacriticScore;
         newObj.dealRating = data.allDeals[i].dealRating;
+        newObj.dealID = data.allDeals[i].dealID;
         data.favorites.push(newObj);
       }
     }
   } else if (e.target.tagName === 'I' && e.target.className === 'fas fa-heart align-items-center favorite-icon active') {
     e.target.className = 'fas fa-heart align-items-center favorite-icon inactive';
+    for (var x = 0; x < data.favorites.length; x++) {
+      if (data.favorites[x].dealID === e.target.closest('.newContainer').querySelector('[data-dealid]').getAttribute('data-dealid')) {
+        data.favorites.splice(x, 1);
+      }
+    }
   }
 }
 
 document.addEventListener('click', toggleFavorite);
-
-function renderFavorites() {
-  var $favoritesList = document.querySelectorAll('.active');
-
-  for (var i = 0; i < $favoritesList.length; i++) {
-    $favoritesPage.appendChild($favoritesList[i].closest('.newContainer').cloneNode(true));
-  }
-}
 
 var $viewList = document.querySelectorAll('div[data-view');
 
