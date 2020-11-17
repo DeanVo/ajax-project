@@ -25,8 +25,6 @@ function goBack(e) {
   } else if (data.view === 'favorites-page' && e.target.className === 'far fa-arrow-alt-circle-left back-icon') {
     viewSwapper('home-page');
   }
-
-  renderFavorites();
 }
 
 $backIcon.addEventListener('click', goBack);
@@ -42,6 +40,19 @@ hideBackOnHome();
 function toggleFavorite(e) {
   if (e.target.tagName === 'I' && e.target.className === 'fas fa-heart align-items-center favorite-icon inactive') {
     e.target.className = 'fas fa-heart align-items-center favorite-icon active';
+    for (var i = 0; i < data.allDeals.length; i++) {
+      var newObj = {};
+      if (data.allDeals[i].dealID === e.target.closest('.newContainer').querySelector('[data-dealid]').getAttribute('data-dealid')) {
+        newObj.title = data.allDeals[i].title;
+        newObj.normalPrice = data.allDeals[i].normalPrice;
+        newObj.salePrice = data.allDeals[i].salePrice;
+        newObj.steamRatingPercent = data.allDeals[i].steamRatingPercent;
+        newObj.percentOff = data.allDeals[i].savings;
+        newObj.metacriticScore = data.allDeals[i].metacriticScore;
+        newObj.dealRating = data.allDeals[i].dealRating;
+        data.favorites.push(newObj);
+      }
+    }
   } else if (e.target.tagName === 'I' && e.target.className === 'fas fa-heart align-items-center favorite-icon active') {
     e.target.className = 'fas fa-heart align-items-center favorite-icon inactive';
   }
