@@ -23,5 +23,5 @@ var data = {
     dealID: ''
   },
   allDeals: [],
-  dealMoreInfo: []
+  favorites: []
 };
