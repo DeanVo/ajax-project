@@ -12,6 +12,10 @@ function goDealsPage() {
 $dealsButton.addEventListener('click', goDealsPage);
 
 function goFavoritesPage() {
+  for (var i = 0; i < data.favorites.length; i++) {
+    $favoritesPage.appendChild(renderDealData(data.favorites[i]));
+
+  }
   viewSwapper('favorites-page');
 }
 
@@ -178,7 +182,6 @@ function renderMoreDealData() {
     releaseDate = releaseDate.toString().substr(4, 11);
     moreInfo.releaseDate = releaseDate;
   }
-
 }
 
 function renderDealData(deal) {
@@ -437,7 +440,7 @@ function renderMoreInfo() {
   $releaseAPI.setAttribute('class', 'font-weight-normal');
   $releaseAPI.textContent = data.moreInfo.releaseDate;
   $info2ColumnHalf2.appendChild($releaseAPI);
-  // come back to this
+
   var $metacriticLinkAPI = document.createElement('h3');
   $metacriticLinkAPI.setAttribute('class', 'font-weight-normal');
   $metacriticLinkAPI.innerHTML = '<a href="https://www.metacritic.com' + moreInfo.metacriticLink + '">Click Here</a>';
