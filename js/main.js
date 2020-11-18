@@ -42,27 +42,19 @@ function hideBackOnHome() {
 hideBackOnHome();
 
 function toggleFavorite(e) {
+  var getContainer = e.target.closest('.newContainer');
+
   if (e.target.tagName === 'I' && e.target.className === 'fas fa-heart align-items-center favorite-icon inactive') {
     e.target.className = 'fas fa-heart align-items-center favorite-icon active';
     for (var i = 0; i < data.allDeals.length; i++) {
-      var newObj = {};
-      if (data.allDeals[i].dealID === e.target.closest('.newContainer').querySelector('[data-dealid]').getAttribute('data-dealid')) {
-        newObj.title = data.allDeals[i].title;
-        newObj.thumb = data.allDeals[i].thumb;
-        newObj.normalPrice = data.allDeals[i].normalPrice;
-        newObj.salePrice = data.allDeals[i].salePrice;
-        newObj.steamRatingPercent = data.allDeals[i].steamRatingPercent;
-        newObj.savings = data.allDeals[i].savings;
-        newObj.metacriticScore = data.allDeals[i].metacriticScore;
-        newObj.dealRating = data.allDeals[i].dealRating;
-        newObj.dealID = data.allDeals[i].dealID;
-        data.favorites.push(newObj);
+      if (data.allDeals[i].dealID === getContainer.querySelector('[data-dealid]').getAttribute('data-dealid')) {
+        data.favorites.push(data.allDeals[i]);
       }
     }
   } else if (e.target.tagName === 'I' && e.target.className === 'fas fa-heart align-items-center favorite-icon active') {
     e.target.className = 'fas fa-heart align-items-center favorite-icon inactive';
     for (var x = 0; x < data.favorites.length; x++) {
-      if (data.favorites[x].dealID === e.target.closest('.newContainer').querySelector('[data-dealid]').getAttribute('data-dealid')) {
+      if (data.favorites[x].dealID === getContainer.querySelector('[data-dealid]').getAttribute('data-dealid')) {
         data.favorites.splice(x, 1);
       }
     }
