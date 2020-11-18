@@ -12,10 +12,6 @@ function goDealsPage() {
 $dealsButton.addEventListener('click', goDealsPage);
 
 function goFavoritesPage() {
-  for (var i = 0; i < data.favorites.length; i++) {
-    $favoritesPage.appendChild(renderDealData(data.favorites[i]));
-
-  }
   viewSwapper('favorites-page');
 }
 
@@ -42,7 +38,6 @@ function hideBackOnHome() {
 hideBackOnHome();
 
 function toggleFavorite(e) {
-
   if (e.target.tagName === 'I' && e.target.className === 'fas fa-heart align-items-center favorite-icon inactive') {
     var getContainer = e.target.closest('.newContainer').querySelector('[data-dealid]').getAttribute('data-dealid');
     e.target.className = 'fas fa-heart align-items-center favorite-icon active';
@@ -51,6 +46,7 @@ function toggleFavorite(e) {
         data.favorites.push(data.allDeals[i]);
       }
     }
+
   } else if (e.target.tagName === 'I' && e.target.className === 'fas fa-heart align-items-center favorite-icon active') {
     getContainer = e.target.closest('.newContainer').querySelector('[data-dealid]').getAttribute('data-dealid');
     e.target.className = 'fas fa-heart align-items-center favorite-icon inactive';
@@ -60,6 +56,8 @@ function toggleFavorite(e) {
       }
     }
   }
+  var dataJSON = JSON.stringify(data);
+  localStorage.setItem('EcoGamer', dataJSON);
 }
 
 document.addEventListener('click', toggleFavorite);
