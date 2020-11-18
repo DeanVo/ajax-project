@@ -42,19 +42,20 @@ function hideBackOnHome() {
 hideBackOnHome();
 
 function toggleFavorite(e) {
-  var getContainer = e.target.closest('.newContainer');
 
   if (e.target.tagName === 'I' && e.target.className === 'fas fa-heart align-items-center favorite-icon inactive') {
+    var getContainer = e.target.closest('.newContainer').querySelector('[data-dealid]').getAttribute('data-dealid');
     e.target.className = 'fas fa-heart align-items-center favorite-icon active';
     for (var i = 0; i < data.allDeals.length; i++) {
-      if (data.allDeals[i].dealID === getContainer.querySelector('[data-dealid]').getAttribute('data-dealid')) {
+      if (data.allDeals[i].dealID === getContainer) {
         data.favorites.push(data.allDeals[i]);
       }
     }
   } else if (e.target.tagName === 'I' && e.target.className === 'fas fa-heart align-items-center favorite-icon active') {
+    getContainer = e.target.closest('.newContainer').querySelector('[data-dealid]').getAttribute('data-dealid');
     e.target.className = 'fas fa-heart align-items-center favorite-icon inactive';
     for (var x = 0; x < data.favorites.length; x++) {
-      if (data.favorites[x].dealID === getContainer.querySelector('[data-dealid]').getAttribute('data-dealid')) {
+      if (data.favorites[x].dealID === getContainer) {
         data.favorites.splice(x, 1);
       }
     }
