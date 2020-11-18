@@ -4,6 +4,7 @@ var $favoritesPage = document.querySelector('.favorites-page-container');
 var $backIcon = document.querySelector('.back-icon');
 var $dealsButton = document.querySelector('.deals-button');
 var $favoritesButton = document.querySelector('.favorites-button');
+var favoritesIcon = 0;
 
 function goDealsPage() {
   viewSwapper('deals-page');
@@ -41,6 +42,7 @@ function toggleFavorite(e) {
   if (e.target.tagName === 'I' && e.target.className === 'fas fa-heart align-items-center favorite-icon inactive') {
     var getContainer = e.target.closest('.newContainer').querySelector('[data-dealid]').getAttribute('data-dealid');
     e.target.className = 'fas fa-heart align-items-center favorite-icon active';
+    data.favoritesIcon.push(e.target.id);
     for (var i = 0; i < data.allDeals.length; i++) {
       if (data.allDeals[i].dealID === getContainer) {
         data.favorites.push(data.allDeals[i]);
@@ -50,6 +52,7 @@ function toggleFavorite(e) {
   } else if (e.target.tagName === 'I' && e.target.className === 'fas fa-heart align-items-center favorite-icon active') {
     getContainer = e.target.closest('.newContainer').querySelector('[data-dealid]').getAttribute('data-dealid');
     e.target.className = 'fas fa-heart align-items-center favorite-icon inactive';
+    data.favoritesIcon.splice(e.target.id, 1);
     for (var x = 0; x < data.favorites.length; x++) {
       if (data.favorites[x].dealID === getContainer) {
         data.favorites.splice(x, 1);
@@ -57,7 +60,9 @@ function toggleFavorite(e) {
     }
   }
   var dataJSON = JSON.stringify(data);
+  var dataFavorites = JSON.stringify(data.favoritesIcon);
   localStorage.setItem('EcoGamer', dataJSON);
+  localStorage.setItem('favoritesIcon', dataFavorites);
 }
 
 document.addEventListener('click', toggleFavorite);
@@ -197,7 +202,7 @@ function renderDealData(deal) {
 
   var $thumb = document.createElement('img');
   $thumb.setAttribute('class', 'game-img');
-  // API data
+
   $thumb.setAttribute('src', deal.thumb);
   $columnHalf1.appendChild($thumb);
 
@@ -207,7 +212,7 @@ function renderDealData(deal) {
 
   var $gameTitle = document.createElement('h2');
   $gameTitle.setAttribute('class', 'game-title');
-  // API data
+
   $gameTitle.textContent = deal.title;
   $columnHalf2.appendChild($gameTitle);
 
@@ -299,6 +304,7 @@ function renderDealData(deal) {
 
   var $icon3 = document.createElement('i');
   $icon3.setAttribute('class', 'fas fa-heart align-items-center favorite-icon inactive');
+  $icon3.setAttribute('id', 'ID' + favoritesIcon++);
   $colThird3.appendChild($icon3);
 
   return $newContainer;
