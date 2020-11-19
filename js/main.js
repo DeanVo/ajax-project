@@ -4,6 +4,7 @@ var $favoritesPage = document.querySelector('.favorites-page-container');
 var $backIcon = document.querySelector('.back-icon');
 var $dealsButton = document.querySelector('.deals-button');
 var $favoritesButton = document.querySelector('.favorites-button');
+var loadingGif = document.querySelector('.loading');
 var favoritesID = 0;
 var correspondingID;
 
@@ -220,6 +221,14 @@ function renderMoreDealData() {
     releaseDate = releaseDate.toString().substr(4, 11);
     moreInfo.releaseDate = releaseDate;
   }
+}
+
+function showLoading() {
+  loadingGif.style.visibility = 'visible';
+}
+
+function hideLoading() {
+  loadingGif.style.visibility = 'hidden';
 }
 
 function renderDealData(deal) {
