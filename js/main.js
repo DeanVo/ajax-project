@@ -4,9 +4,19 @@ var $favoritesPage = document.querySelector('.favorites-page-container');
 var $backIcon = document.querySelector('.back-icon');
 var $dealsButton = document.querySelector('.deals-button');
 var $favoritesButton = document.querySelector('.favorites-button');
-var favoritesIcon = 0;
+var favoritesID = 0;
 
 function goDealsPage() {
+  if (data.view === 'deals-page') {
+    var favoriteDeals = document.querySelectorAll('.favorite-icon');
+    for (var x = 0; x < data.favoritesIcon.length; x++) {
+      for (var y = 0; y < favoriteDeals.length; y++) {
+        if (data.favoritesIcon[x] === favoriteDeals[y].getAttribute('id')) {
+          favoriteDeals[y].className = 'fas fa-heart align-items-center favorite-icon active';
+        }
+      }
+    }
+  }
   viewSwapper('deals-page');
 }
 
@@ -46,6 +56,7 @@ function toggleFavorite(e) {
     for (var i = 0; i < data.allDeals.length; i++) {
       if (data.allDeals[i].dealID === getContainer) {
         data.favorites.push(data.allDeals[i]);
+        $favoritesPage.appendChild(e.target.closest('.newContainer').cloneNode(true));
       }
     }
 
@@ -60,12 +71,34 @@ function toggleFavorite(e) {
     }
   }
   var dataJSON = JSON.stringify(data);
-  var dataFavorites = JSON.stringify(data.favoritesIcon);
   localStorage.setItem('EcoGamer', dataJSON);
-  localStorage.setItem('favoritesIcon', dataFavorites);
 }
 
 document.addEventListener('click', toggleFavorite);
+
+window.addEventListener('load', function (e) {
+
+  var previousProfile = localStorage.getItem('EcoGamer');
+  if (previousProfile !== null) {
+    // eslint-disable-next-line no-global-assign
+    data = JSON.parse(previousProfile);
+  }
+
+  for (var i = 0; i < data.favorites.length; i++) {
+    $favoritesPage.prepend(renderDealData(data.favorites[i]));
+  }
+
+  if (data.view === 'favorites-page') {
+    var favoriteFill = document.querySelectorAll('.favorite-icon');
+    for (var x = 0; x < data.favoritesIcon.length; x++) {
+      for (var y = 0; y < favoriteFill.length; y++) {
+        if (data.favoritesIcon[x] === favoriteFill[y].getAttribute('id')) {
+          favoriteFill[y].className = 'fas fa-heart align-items-center favorite-icon active';
+        }
+      }
+    }
+  }
+});
 
 var $viewList = document.querySelectorAll('div[data-view');
 
@@ -304,7 +337,7 @@ function renderDealData(deal) {
 
   var $icon3 = document.createElement('i');
   $icon3.setAttribute('class', 'fas fa-heart align-items-center favorite-icon inactive');
-  $icon3.setAttribute('id', 'ID' + favoritesIcon++);
+  $icon3.setAttribute('id', 'ID' + favoritesID++);
   $colThird3.appendChild($icon3);
 
   return $newContainer;
