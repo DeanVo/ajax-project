@@ -5,18 +5,9 @@ var $backIcon = document.querySelector('.back-icon');
 var $dealsButton = document.querySelector('.deals-button');
 var $favoritesButton = document.querySelector('.favorites-button');
 var favoritesID = 0;
+var correspondingID;
 
 function goDealsPage() {
-  if (data.view === 'deals-page') {
-    var favoriteDeals = document.querySelectorAll('.favorite-icon');
-    for (var x = 0; x < data.favoritesIcon.length; x++) {
-      for (var y = 0; y < favoriteDeals.length; y++) {
-        if (data.favoritesIcon[x] === favoriteDeals[y].getAttribute('id')) {
-          favoriteDeals[y].className = 'fas fa-heart align-items-center favorite-icon active';
-        }
-      }
-    }
-  }
   viewSwapper('deals-page');
 }
 
@@ -47,6 +38,27 @@ function hideBackOnHome() {
 }
 
 hideBackOnHome();
+
+function removeFavorite(e) {
+  if (data.view === 'favorites-page') {
+    if (e.target.tagName === 'I' && e.target.className === 'fas fa-heart align-items-center favorite-icon active') {
+      correspondingID = e.target.closest('.newContainer').getAttribute('data-dealid');
+      e.target.closest('.newContainer').remove();
+      removeDealsFill();
+    }
+  }
+}
+
+document.addEventListener('click', removeFavorite);
+
+function removeDealsFill() {
+  var allActive = document.querySelectorAll('.active');
+  for (var i = 0; i < allActive.length; i++) {
+    if (allActive[i].closest('.newContainer').getAttribute('data-dealid') === correspondingID) {
+      allActive[i].className = 'fas fa-heart align-items-center favorite-icon inactive';
+    }
+  }
+}
 
 function toggleFavorite(e) {
   if (e.target.tagName === 'I' && e.target.className === 'fas fa-heart align-items-center favorite-icon inactive') {
@@ -88,16 +100,15 @@ window.addEventListener('load', function (e) {
     $favoritesPage.prepend(renderDealData(data.favorites[i]));
   }
 
-  if (data.view === 'favorites-page') {
-    var favoriteFill = document.querySelectorAll('.favorite-icon');
-    for (var x = 0; x < data.favoritesIcon.length; x++) {
-      for (var y = 0; y < favoriteFill.length; y++) {
-        if (data.favoritesIcon[x] === favoriteFill[y].getAttribute('id')) {
-          favoriteFill[y].className = 'fas fa-heart align-items-center favorite-icon active';
-        }
+  var favoriteDeals = document.querySelectorAll('.newContainer');
+  for (var x = 0; x < data.favoritesIcon.length; x++) {
+    for (var y = 0; y < favoriteDeals.length; y++) {
+      if (data.favorites[x].dealID === favoriteDeals[y].getAttribute('data-dealid')) {
+        favoriteDeals[y].querySelector('.favorite-icon').className = 'fas fa-heart align-items-center favorite-icon active';
       }
     }
   }
+
 });
 
 var $viewList = document.querySelectorAll('div[data-view');
@@ -151,8 +162,6 @@ function getMoreDealData(dealID) {
   xhr.open('GET', 'https://www.cheapshark.com/api/1.0/deals?id=' + dealID);
   xhr.responseType = 'json';
   xhr.addEventListener('load', function () {
-    console.log(xhr.status);
-    console.log(xhr.response);
     data.dealMoreInfo = xhr.response;
     moreInfo.publisher = xhr.response.gameInfo.publisher;
     moreInfo.cheapestPrice = xhr.response.cheapestPrice.price;
@@ -216,6 +225,7 @@ function renderMoreDealData() {
 function renderDealData(deal) {
   var $newContainer = document.createElement('div');
   $newContainer.setAttribute('class', 'newContainer');
+  $newContainer.setAttribute('data-dealId', deal.dealID);
 
   var $newDeal = document.createElement('div');
   $newDeal.setAttribute('class', 'deal-listing-container');

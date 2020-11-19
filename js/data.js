@@ -24,5 +24,6 @@ var data = {
   },
   allDeals: [],
   favorites: [],
-  favoritesIcon: []
+  favoritesIcon: [],
+  favoritesID: []
 };
