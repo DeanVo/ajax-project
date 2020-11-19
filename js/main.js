@@ -132,12 +132,11 @@ function viewSwapper(dataView) {
 
 function getDealData() {
   var xhr = new XMLHttpRequest();
+  showLoading();
 
   xhr.open('GET', 'https://www.cheapshark.com/api/1.0/deals?');
   xhr.responseType = 'json';
   xhr.addEventListener('load', function () {
-    console.log('xhr status', xhr.status);
-    console.log('xhr response', xhr.response);
     data.allDeals = xhr.response;
 
     for (var i = 0; i < data.allDeals.length; i++) {
@@ -149,7 +148,12 @@ function getDealData() {
         dealInfo.metacriticScore = 'N/A';
       }
       $dealsPage.appendChild(renderDealData(dealInfo));
+      hideLoading();
     }
+  });
+  xhr.addEventListener('error', function () {
+    alert('Unable to load data. Please check your internet connection.');
+    hideLoading();
   });
   xhr.send();
 }
@@ -159,7 +163,7 @@ getDealData();
 function getMoreDealData(dealID) {
   var xhr = new XMLHttpRequest();
   var moreInfo = data.moreInfo;
-
+  showLoading();
   xhr.open('GET', 'https://www.cheapshark.com/api/1.0/deals?id=' + dealID);
   xhr.responseType = 'json';
   xhr.addEventListener('load', function () {
@@ -174,6 +178,11 @@ function getMoreDealData(dealID) {
     renderMoreDealData();
     $moreInfoPage.prepend(renderMoreInfo());
     viewSwapper('more-info');
+    hideLoading();
+  });
+  xhr.addEventListener('error', function () {
+    alert('Unable to load data. Please check your internet connection.');
+    hideLoading();
   });
   xhr.send();
 }
