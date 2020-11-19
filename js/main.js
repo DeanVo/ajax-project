@@ -5,6 +5,8 @@ var $backIcon = document.querySelector('.back-icon');
 var $dealsButton = document.querySelector('.deals-button');
 var $favoritesButton = document.querySelector('.favorites-button');
 var loadingGif = document.querySelector('.loading-container');
+var $errorModal = document.querySelector('.error-modal');
+var $errorModalExit = document.querySelector('.exit-icon');
 var favoritesID = 0;
 var correspondingID;
 
@@ -19,6 +21,12 @@ function goFavoritesPage() {
 }
 
 $favoritesButton.addEventListener('click', goFavoritesPage);
+
+function exitModal() {
+  $errorModal.className = 'error-modal';
+}
+
+$errorModalExit.addEventListener('click', exitModal);
 
 function goBack(e) {
   if (data.view === 'more-info' && e.target.className === 'far fa-arrow-alt-circle-left back-icon') {
@@ -152,7 +160,7 @@ function getDealData() {
     }
   });
   xhr.addEventListener('error', function () {
-    alert('Unable to load data. Please check your internet connection.');
+    $errorModal.className = 'error-modal show';
     hideLoading();
   });
   xhr.send();
@@ -181,7 +189,7 @@ function getMoreDealData(dealID) {
     hideLoading();
   });
   xhr.addEventListener('error', function () {
-    alert('Unable to load data. Please check your internet connection.');
+    $errorModal.className = 'error-modal show';
     hideLoading();
   });
   xhr.send();
