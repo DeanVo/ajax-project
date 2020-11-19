@@ -23,5 +23,7 @@ var data = {
     dealID: ''
   },
   allDeals: [],
-  favorites: []
+  favorites: [],
+  favoritesIcon: [],
+  favoritesID: []
 };
