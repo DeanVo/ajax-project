@@ -15,10 +15,12 @@ h2 {
   font-size: 1rem;
 }
 
+/* .loading-container {
+
+} */
+
 .loading {
-  width: 50%;
-  position: fixed;
-  right: 15rem;
+  width: 100%;
 }
 
 .roboto {
