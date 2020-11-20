@@ -509,7 +509,7 @@ function renderMoreInfo() {
 
   var $metacriticLinkAPI = document.createElement('h3');
   $metacriticLinkAPI.setAttribute('class', 'font-weight-normal');
-  $metacriticLinkAPI.innerHTML = '<a href="https://www.metacritic.com' + moreInfo.metacriticLink + '">Click Here</a>';
+  $metacriticLinkAPI.innerHTML = '<a target="_blank" href="https://www.metacritic.com' + moreInfo.metacriticLink + '">Click Here</a>';
   $info2ColumnHalf2.appendChild($metacriticLinkAPI);
 
   var $steamReviewsAPI = document.createElement('h3');
