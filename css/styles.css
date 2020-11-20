@@ -53,7 +53,7 @@ h2 {
 }
 
 .loading {
-  width: 100%;
+  max-width: 80%;
 }
 
 .roboto {
