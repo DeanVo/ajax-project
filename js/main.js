@@ -10,6 +10,28 @@ var $errorModalExit = document.querySelector('.exit-icon');
 var favoritesID = 0;
 var correspondingID;
 
+function shoppingIcon(e) {
+  var correspondingDeal = '';
+  if (data.view === 'favorites-page') {
+    if (e.target.tagName === 'I' && e.target.className === 'fas fa-shopping-cart cart-icon') {
+      correspondingDeal = e.target.closest('.newContainer').getAttribute('data-dealid');
+      window.open('https://www.cheapshark.com/redirect?dealID={' + correspondingDeal + '}', '_blank');
+    }
+  }
+}
+
+document.addEventListener('click', shoppingIcon);
+
+function infoIcon(e) {
+  if (data.view === 'favorites-page') {
+    if (e.target.tagName === 'I' && e.target.className === 'fas fa-info-circle info-icon') {
+      getMoreDealData(e.target.getAttribute('data-dealid'));
+    }
+  }
+}
+
+document.addEventListener('click', infoIcon);
+
 function goDealsPage() {
   viewSwapper('deals-page');
 }
@@ -138,6 +160,14 @@ function viewSwapper(dataView) {
   }
 }
 
+function showLoading() {
+  loadingGif.className = 'loading-container show';
+}
+
+function hideLoading() {
+  loadingGif.className = 'loading-container';
+}
+
 function getDealData() {
   var xhr = new XMLHttpRequest();
   showLoading();
@@ -238,14 +268,6 @@ function renderMoreDealData() {
     releaseDate = releaseDate.toString().substr(4, 11);
     moreInfo.releaseDate = releaseDate;
   }
-}
-
-function showLoading() {
-  loadingGif.className = 'loading-container show';
-}
-
-function hideLoading() {
-  loadingGif.className = 'loading-container';
 }
 
 function renderDealData(deal) {
