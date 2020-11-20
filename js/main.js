@@ -338,6 +338,10 @@ function renderDealData(deal) {
 
   var $icon1 = document.createElement('i');
   $icon1.setAttribute('class', 'fas fa-shopping-cart cart-icon');
+  $icon1.addEventListener('click', function (e) {
+    var correspondingDealID = e.target.closest('.newContainer').getAttribute('data-dealid');
+    window.open('https://www.cheapshark.com/redirect?dealID={' + correspondingDealID + '}', '_blank');
+  });
   $colThird1.appendChild($icon1);
 
   var $colThird2 = document.createElement('div');
