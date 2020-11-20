@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 var $dealsPage = document.querySelector('.deals-page-container');
 var $moreInfoPage = document.querySelector('.more-info-page-container');
 var $favoritesPage = document.querySelector('.favorites-page-container');
@@ -9,6 +10,42 @@ var $errorModal = document.querySelector('.error-modal');
 var $errorModalExit = document.querySelector('.exit-icon');
 var favoritesID = 0;
 var correspondingID;
+
+function shoppingIcon(e) {
+  var correspondingDeal = '';
+  if (page.view === 'favorites-page') {
+    if (e.target.tagName === 'I' && e.target.className === 'fas fa-shopping-cart cart-icon') {
+      correspondingDeal = e.target.closest('.newContainer').getAttribute('data-dealid');
+      window.open('https://www.cheapshark.com/redirect?dealID={' + correspondingDeal + '}', '_blank');
+    }
+  }
+}
+
+document.addEventListener('click', shoppingIcon);
+
+function infoIcon(e) {
+  var corresponding = '';
+  if (page.view === 'favorites-page') {
+    if (e.target.tagName === 'I' && e.target.className === 'fas fa-info-circle info-icon') {
+      corresponding = e.target.getAttribute('data-dealid');
+      for (var i = 0; i < data.allDeals.length; i++) {
+        if (data.allDeals[i].dealID === corresponding) {
+          data.moreInfo.title = data.allDeals[i].title;
+          data.moreInfo.gameImg = data.allDeals[i].thumb;
+          data.moreInfo.normalPrice = data.allDeals[i].normalPrice;
+          data.moreInfo.salePrice = data.allDeals[i].salePrice;
+          data.moreInfo.steamRating = data.allDeals[i].steamRatingPercent;
+          data.moreInfo.percentOff = data.allDeals[i].savings;
+          data.moreInfo.metacriticScore = data.allDeals[i].metacriticScore;
+          data.moreInfo.dealRating = data.allDeals[i].dealRating;
+        }
+      }
+      getMoreDealData(e.target.getAttribute('data-dealid'));
+    }
+  }
+}
+
+document.addEventListener('click', infoIcon);
 
 function goDealsPage() {
   viewSwapper('deals-page');
@@ -29,11 +66,15 @@ function exitModal() {
 $errorModalExit.addEventListener('click', exitModal);
 
 function goBack(e) {
-  if (data.view === 'more-info' && e.target.className === 'far fa-arrow-alt-circle-left back-icon') {
+  if (page.view === 'more-info' && page.previousView === 'more-info' && e.target.className === 'far fa-arrow-alt-circle-left back-icon') {
+    viewSwapper('favorites-page');
+  } else if (page.view === 'more-info' && page.previousView === 'favorites-page' && e.target.className === 'far fa-arrow-alt-circle-left back-icon') {
+    viewSwapper('favorites-page');
+  } else if (page.view === 'more-info' && e.target.className === 'far fa-arrow-alt-circle-left back-icon') {
     viewSwapper('deals-page');
-  } else if (data.view === 'deals-page' && e.target.className === 'far fa-arrow-alt-circle-left back-icon') {
+  } else if (page.view === 'deals-page' && e.target.className === 'far fa-arrow-alt-circle-left back-icon') {
     viewSwapper('home-page');
-  } else if (data.view === 'favorites-page' && e.target.className === 'far fa-arrow-alt-circle-left back-icon') {
+  } else if (page.view === 'favorites-page' && e.target.className === 'far fa-arrow-alt-circle-left back-icon') {
     viewSwapper('home-page');
   }
 }
@@ -41,7 +82,7 @@ function goBack(e) {
 $backIcon.addEventListener('click', goBack);
 
 function hideBackOnHome() {
-  if (data.view === 'home-page') {
+  if (page.view === 'home-page') {
     $backIcon.style.visibility = 'hidden';
   }
 }
@@ -49,7 +90,7 @@ function hideBackOnHome() {
 hideBackOnHome();
 
 function removeFavorite(e) {
-  if (data.view === 'favorites-page') {
+  if (page.view === 'favorites-page') {
     if (e.target.tagName === 'I' && e.target.className === 'fas fa-heart align-items-center favorite-icon active') {
       correspondingID = e.target.closest('.newContainer').getAttribute('data-dealid');
       e.target.closest('.newContainer').remove();
@@ -110,7 +151,7 @@ window.addEventListener('load', function (e) {
   }
 
   var favoriteDeals = document.querySelectorAll('.newContainer');
-  for (var x = 0; x < data.favoritesIcon.length; x++) {
+  for (var x = 0; x < data.favorites.length; x++) {
     for (var y = 0; y < favoriteDeals.length; y++) {
       if (data.favorites[x].dealID === favoriteDeals[y].getAttribute('data-dealid')) {
         favoriteDeals[y].querySelector('.favorite-icon').className = 'fas fa-heart align-items-center favorite-icon active';
@@ -130,12 +171,21 @@ function viewSwapper(dataView) {
       $viewList[i].className = '';
     }
   }
-  data.view = dataView;
-  if (data.view === 'home-page') {
+  page.previousView = page.view;
+  page.view = dataView;
+  if (page.view === 'home-page') {
     $backIcon.style.visibility = 'hidden';
   } else {
     $backIcon.style.visibility = 'visible';
   }
+}
+
+function showLoading() {
+  loadingGif.className = 'loading-container show';
+}
+
+function hideLoading() {
+  loadingGif.className = 'loading-container';
 }
 
 function getDealData() {
@@ -240,14 +290,6 @@ function renderMoreDealData() {
   }
 }
 
-function showLoading() {
-  loadingGif.className = 'loading-container show';
-}
-
-function hideLoading() {
-  loadingGif.className = 'loading-container';
-}
-
 function renderDealData(deal) {
   var $newContainer = document.createElement('div');
   $newContainer.setAttribute('class', 'newContainer');
@@ -338,6 +380,10 @@ function renderDealData(deal) {
 
   var $icon1 = document.createElement('i');
   $icon1.setAttribute('class', 'fas fa-shopping-cart cart-icon');
+  $icon1.addEventListener('click', function (e) {
+    var correspondingDealID = e.target.closest('.newContainer').getAttribute('data-dealid');
+    window.open('https://www.cheapshark.com/redirect?dealID={' + correspondingDealID + '}', '_blank');
+  });
   $colThird1.appendChild($icon1);
 
   var $colThird2 = document.createElement('div');
@@ -509,7 +555,7 @@ function renderMoreInfo() {
 
   var $metacriticLinkAPI = document.createElement('h3');
   $metacriticLinkAPI.setAttribute('class', 'font-weight-normal');
-  $metacriticLinkAPI.innerHTML = '<a href="https://www.metacritic.com' + moreInfo.metacriticLink + '">Click Here</a>';
+  $metacriticLinkAPI.innerHTML = '<a target="_blank" href="https://www.metacritic.com' + moreInfo.metacriticLink + '">Click Here</a>';
   $info2ColumnHalf2.appendChild($metacriticLinkAPI);
 
   var $steamReviewsAPI = document.createElement('h3');

@@ -1,7 +1,6 @@
 /* exported data */
 
 var data = {
-  view: 'home-page',
   moreInfo: {
     title: '',
     gameID: '',
@@ -26,4 +25,10 @@ var data = {
   favorites: [],
   favoritesIcon: [],
   favoritesID: []
+};
+
+// eslint-disable-next-line no-unused-vars
+var page = {
+  previousView: '',
+  view: 'home-page'
 };
