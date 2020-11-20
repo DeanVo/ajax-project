@@ -4,6 +4,9 @@ var $favoritesPage = document.querySelector('.favorites-page-container');
 var $backIcon = document.querySelector('.back-icon');
 var $dealsButton = document.querySelector('.deals-button');
 var $favoritesButton = document.querySelector('.favorites-button');
+var loadingGif = document.querySelector('.loading-container');
+var $errorModal = document.querySelector('.error-modal');
+var $errorModalExit = document.querySelector('.exit-icon');
 var favoritesID = 0;
 var correspondingID;
 
@@ -18,6 +21,12 @@ function goFavoritesPage() {
 }
 
 $favoritesButton.addEventListener('click', goFavoritesPage);
+
+function exitModal() {
+  $errorModal.className = 'error-modal';
+}
+
+$errorModalExit.addEventListener('click', exitModal);
 
 function goBack(e) {
   if (data.view === 'more-info' && e.target.className === 'far fa-arrow-alt-circle-left back-icon') {
@@ -131,12 +140,11 @@ function viewSwapper(dataView) {
 
 function getDealData() {
   var xhr = new XMLHttpRequest();
+  showLoading();
 
   xhr.open('GET', 'https://www.cheapshark.com/api/1.0/deals?');
   xhr.responseType = 'json';
   xhr.addEventListener('load', function () {
-    console.log('xhr status', xhr.status);
-    console.log('xhr response', xhr.response);
     data.allDeals = xhr.response;
 
     for (var i = 0; i < data.allDeals.length; i++) {
@@ -148,7 +156,12 @@ function getDealData() {
         dealInfo.metacriticScore = 'N/A';
       }
       $dealsPage.appendChild(renderDealData(dealInfo));
+      hideLoading();
     }
+  });
+  xhr.addEventListener('error', function () {
+    $errorModal.className = 'error-modal show';
+    hideLoading();
   });
   xhr.send();
 }
@@ -158,7 +171,7 @@ getDealData();
 function getMoreDealData(dealID) {
   var xhr = new XMLHttpRequest();
   var moreInfo = data.moreInfo;
-
+  showLoading();
   xhr.open('GET', 'https://www.cheapshark.com/api/1.0/deals?id=' + dealID);
   xhr.responseType = 'json';
   xhr.addEventListener('load', function () {
@@ -173,6 +186,11 @@ function getMoreDealData(dealID) {
     renderMoreDealData();
     $moreInfoPage.prepend(renderMoreInfo());
     viewSwapper('more-info');
+    hideLoading();
+  });
+  xhr.addEventListener('error', function () {
+    $errorModal.className = 'error-modal show';
+    hideLoading();
   });
   xhr.send();
 }
@@ -220,6 +238,14 @@ function renderMoreDealData() {
     releaseDate = releaseDate.toString().substr(4, 11);
     moreInfo.releaseDate = releaseDate;
   }
+}
+
+function showLoading() {
+  loadingGif.className = 'loading-container show';
+}
+
+function hideLoading() {
+  loadingGif.className = 'loading-container';
 }
 
 function renderDealData(deal) {
