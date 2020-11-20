@@ -68,6 +68,8 @@ $errorModalExit.addEventListener('click', exitModal);
 function goBack(e) {
   if (page.view === 'more-info' && page.previousView === 'more-info' && e.target.className === 'far fa-arrow-alt-circle-left back-icon') {
     viewSwapper('favorites-page');
+  } else if (page.view === 'more-info' && page.previousView === 'favorites-page' && e.target.className === 'far fa-arrow-alt-circle-left back-icon') {
+    viewSwapper('favorites-page');
   } else if (page.view === 'more-info' && e.target.className === 'far fa-arrow-alt-circle-left back-icon') {
     viewSwapper('deals-page');
   } else if (page.view === 'deals-page' && e.target.className === 'far fa-arrow-alt-circle-left back-icon') {
