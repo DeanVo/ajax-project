@@ -11,14 +11,14 @@ var $errorModalExit = document.querySelector('.exit-icon');
 var favoritesID = 0;
 var correspondingID;
 
-function removeMsg() {
+function removeNoFavoritesMsg() {
   var noFavoritesMsg = document.querySelector('.no-favorites-container');
   if (noFavoritesMsg) {
     noFavoritesMsg.className = 'no-favorites-container roboto hidden';
   }
 }
 
-function showMsg() {
+function showNoFavoritesMsg() {
   var noFavoritesMsg = document.querySelector('.no-favorites-container');
   if (data.favorites[0] === undefined) {
     noFavoritesMsg.className = 'no-favorites-container roboto';
@@ -137,7 +137,7 @@ function toggleFavorite(e) {
       if (data.allDeals[i].dealID === getContainer) {
         data.favorites.push(data.allDeals[i]);
         $favoritesPage.appendChild(e.target.closest('.newContainer').cloneNode(true));
-        removeMsg();
+        removeNoFavoritesMsg();
       }
     }
 
@@ -148,7 +148,7 @@ function toggleFavorite(e) {
     for (var x = 0; x < data.favorites.length; x++) {
       if (data.favorites[x].dealID === getContainer) {
         data.favorites.splice(x, 1);
-        showMsg();
+        showNoFavoritesMsg();
       }
     }
   }
@@ -158,6 +158,7 @@ function toggleFavorite(e) {
 
 document.addEventListener('click', toggleFavorite);
 
+// uses local storage to keep track of saved favorites
 window.addEventListener('load', function (e) {
 
   var previousProfile = localStorage.getItem('EcoGamer');
@@ -180,7 +181,7 @@ window.addEventListener('load', function (e) {
   }
 
   if (data.favorites[0]) {
-    removeMsg();
+    removeNoFavoritesMsg();
   }
 
 });
@@ -360,7 +361,6 @@ function renderDealData(deal) {
   $columnHalf3.setAttribute('class', 'column-half text-align-center margin-left');
   $row2.appendChild($columnHalf3);
 
-  // Deal info section, will require API
   var $retail = document.createElement('h2');
   $retail.setAttribute('class', 'one-line');
   $retail.innerHTML = 'Retail: <span class="red-striked">$' + deal.normalPrice + '</span>';
