@@ -37,6 +37,14 @@ body {
   display: none;
 }
 
+.no-favorites-container {
+  width: 100%;
+  min-height: 575px;
+  margin: 0 auto;
+  text-align: center;
+  color:#edf6f9;
+}
+
 .loading-container.show {
   display: block;
   background-color: rgba(0, 0, 0, 0.8);

@@ -11,6 +11,24 @@ var $errorModalExit = document.querySelector('.exit-icon');
 var favoritesID = 0;
 var correspondingID;
 
+function removeMsg() {
+  var noFavoritesMsg = document.querySelector('.no-favorites-container');
+  if (noFavoritesMsg) {
+    noFavoritesMsg.className = 'no-favorites-container roboto hidden';
+  }
+}
+
+function showMsg() {
+  var noFavoritesMsg = document.querySelector('.no-favorites-container');
+  if (data.favorites[0] === undefined) {
+    noFavoritesMsg.className = 'no-favorites-container roboto';
+  }
+}
+
+function removeMoreInfoFirstChild() {
+  $moreInfoPage.firstElementChild.remove();
+}
+
 function shoppingIcon(e) {
   var correspondingDeal = '';
   if (page.view === 'favorites-page') {
@@ -119,6 +137,7 @@ function toggleFavorite(e) {
       if (data.allDeals[i].dealID === getContainer) {
         data.favorites.push(data.allDeals[i]);
         $favoritesPage.appendChild(e.target.closest('.newContainer').cloneNode(true));
+        removeMsg();
       }
     }
 
@@ -129,6 +148,7 @@ function toggleFavorite(e) {
     for (var x = 0; x < data.favorites.length; x++) {
       if (data.favorites[x].dealID === getContainer) {
         data.favorites.splice(x, 1);
+        showMsg();
       }
     }
   }
@@ -157,6 +177,10 @@ window.addEventListener('load', function (e) {
         favoriteDeals[y].querySelector('.favorite-icon').className = 'fas fa-heart align-items-center favorite-icon active';
       }
     }
+  }
+
+  if (data.favorites[0]) {
+    removeMsg();
   }
 
 });
@@ -234,7 +258,8 @@ function getMoreDealData(dealID) {
     moreInfo.steamRatingText = xhr.response.gameInfo.steamRatingText;
     moreInfo.steamRatingCount = xhr.response.gameInfo.steamRatingCount;
     renderMoreDealData();
-    $moreInfoPage.prepend(renderMoreInfo());
+    $moreInfoPage.appendChild(renderMoreInfo());
+    removeMoreInfoFirstChild();
     viewSwapper('more-info');
     hideLoading();
   });
