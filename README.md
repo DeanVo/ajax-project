@@ -19,3 +19,10 @@ A dynamic Javascript application that uses CheapShark API to keep track of digit
 # Planned Additions
 * User can search for specific games
 * User can compare deals side by side
+
+# Preview
+![preview](https://github.com/DeanVo/ajax-project/blob/master/img/ajax-project.gif)
+
+
+# Live Link
+deanvo.github.io/ajax-project/
