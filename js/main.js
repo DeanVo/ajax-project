@@ -317,7 +317,7 @@ function renderMoreDealData() {
 }
 
 function renderDealData(deal) {
-  var $newContainer = document.createElement('div');
+  var $newContainer = document.createElement('ul');
   $newContainer.setAttribute('class', 'newContainer');
   $newContainer.setAttribute('data-dealId', deal.dealID);
 
