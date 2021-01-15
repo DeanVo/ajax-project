@@ -145,6 +145,8 @@ function toggleFavorite(e) {
     getContainer = e.target.closest('.newContainer').querySelector('[data-dealid]').getAttribute('data-dealid');
     e.target.className = 'fas fa-heart align-items-center favorite-icon inactive';
     data.favoritesIcon.splice(e.target.id, 1);
+    var correspondingFav = document.querySelectorAll(`[data-dealid="${getContainer}"`)[2];
+    correspondingFav.remove();
     for (var x = 0; x < data.favorites.length; x++) {
       if (data.favorites[x].dealID === getContainer) {
         data.favorites.splice(x, 1);
@@ -152,6 +154,7 @@ function toggleFavorite(e) {
       }
     }
   }
+
   var dataJSON = JSON.stringify(data);
   localStorage.setItem('EcoGamer', dataJSON);
 }
