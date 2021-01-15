@@ -55,6 +55,11 @@ body {
   min-height: 100%;
 }
 
+.newContainer {
+  padding: 0;
+  margin: 0;
+}
+
 @media screen and (min-width: 768px) {
   .container {
     max-width: 575px;
@@ -63,4 +68,17 @@ body {
   .loading-container {
     text-align: center;
   }
+
+  .deals-page-container {
+    column-count: 2;
+  }
+
+  ul.newContainer {
+    display: inline-block;
+    width: -webkit-fill-available;
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
+  }
+
 }

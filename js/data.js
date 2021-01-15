@@ -24,7 +24,8 @@ var data = {
   allDeals: [],
   favorites: [],
   favoritesIcon: [],
-  favoritesID: []
+  favoritesID: [],
+  removeFavoriteId: []
 };
 
 // eslint-disable-next-line no-unused-vars
