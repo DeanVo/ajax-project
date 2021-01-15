@@ -25,4 +25,4 @@ A dynamic Javascript application that uses CheapShark API to keep track of digit
 
 
 # Live Link
-deanvo.github.io/ajax-project/
+[Eco Gamer](deanvo.github.io/ajax-project/)
